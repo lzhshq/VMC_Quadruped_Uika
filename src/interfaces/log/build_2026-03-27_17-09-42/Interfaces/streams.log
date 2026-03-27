@@ -1,7 +1,0 @@
-[0.009s] Invoking command in '/home/lzh/VMC_Quadruped/src/Interfaces/build/Interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/lzh/VMC_Quadruped/src/Interfaces -DCMAKE_INSTALL_PREFIX=/home/lzh/VMC_Quadruped/src/Interfaces/install/Interfaces
-[0.020s] [31mCMake Error at CMakeLists.txt:17:
-[0.020s]   Parse error.  Function missing ending ")".  End of file reached.
-[0.020s] 
-[0.020s] [0m
-[0.022s] -- Configuring incomplete, errors occurred!
-[0.023s] Invoked command in '/home/lzh/VMC_Quadruped/src/Interfaces/build/Interfaces' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/lzh/VMC_Quadruped/src/Interfaces -DCMAKE_INSTALL_PREFIX=/home/lzh/VMC_Quadruped/src/Interfaces/install/Interfaces

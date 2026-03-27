@@ -1,2 +1,0 @@
-Invoking command in '/home/lzh/VMC_Quadruped/src/Interfaces/build/Interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/lzh/VMC_Quadruped/src/Interfaces -DCMAKE_INSTALL_PREFIX=/home/lzh/VMC_Quadruped/src/Interfaces/install/Interfaces
-Invoked command in '/home/lzh/VMC_Quadruped/src/Interfaces/build/Interfaces' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/lzh/VMC_Quadruped/src/Interfaces -DCMAKE_INSTALL_PREFIX=/home/lzh/VMC_Quadruped/src/Interfaces/install/Interfaces

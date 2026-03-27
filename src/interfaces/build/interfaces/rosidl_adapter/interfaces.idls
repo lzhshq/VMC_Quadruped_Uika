@@ -1,8 +1,0 @@
-/home/lzh/VMC_Quadruped/src/interfaces/build/interfaces/rosidl_adapter/interfaces:msg/BaseState.idl
-/home/lzh/VMC_Quadruped/src/interfaces/build/interfaces/rosidl_adapter/interfaces:msg/ContactState.idl
-/home/lzh/VMC_Quadruped/src/interfaces/build/interfaces/rosidl_adapter/interfaces:msg/GaitPhase.idl
-/home/lzh/VMC_Quadruped/src/interfaces/build/interfaces/rosidl_adapter/interfaces:msg/MotionCommand.idl
-/home/lzh/VMC_Quadruped/src/interfaces/build/interfaces/rosidl_adapter/interfaces:msg/SingleFootState.idl
-/home/lzh/VMC_Quadruped/src/interfaces/build/interfaces/rosidl_adapter/interfaces:msg/FootState.idl
-/home/lzh/VMC_Quadruped/src/interfaces/build/interfaces/rosidl_adapter/interfaces:msg/MotorCommand.idl
-/home/lzh/VMC_Quadruped/src/interfaces/build/interfaces/rosidl_adapter/interfaces:msg/MotorCommand12.idl
