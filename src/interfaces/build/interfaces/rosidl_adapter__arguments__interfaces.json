@@ -1,0 +1,13 @@
+{
+  "package_name": "interfaces",
+  "non_idl_tuples": [
+    "/home/lzh/VMC_Quadruped/src/interfaces:msg/BaseState.msg",
+    "/home/lzh/VMC_Quadruped/src/interfaces:msg/ContactState.msg",
+    "/home/lzh/VMC_Quadruped/src/interfaces:msg/GaitPhase.msg",
+    "/home/lzh/VMC_Quadruped/src/interfaces:msg/MotionCommand.msg",
+    "/home/lzh/VMC_Quadruped/src/interfaces:msg/SingleFootState.msg",
+    "/home/lzh/VMC_Quadruped/src/interfaces:msg/FootState.msg",
+    "/home/lzh/VMC_Quadruped/src/interfaces:msg/MotorCommand.msg",
+    "/home/lzh/VMC_Quadruped/src/interfaces:msg/MotorCommand12.msg"
+  ]
+}

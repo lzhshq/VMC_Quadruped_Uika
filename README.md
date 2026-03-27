@@ -16,16 +16,16 @@
 
 推荐工程分为以下几个包：
 
-1. `quadruped_description`
-2. `quadruped_interfaces`
-3. `quadruped_estimation`
-4. `quadruped_gait`
-5. `quadruped_control`
-6. `quadruped_bringup`
+1. `description`
+2. `interfaces`
+3. `estimation`
+4. `gait`
+5. `control`
+6. `bringup`
 
 如需后续接实机，可再增加：
 
-7. `quadruped_hardware`
+7. `hardware`
 
 ---
 
