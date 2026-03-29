@@ -23,6 +23,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/FootState.msg"
   "msg/MotorCommand.msg"
   "msg/MotorCommand12.msg"
+  "msg/MotorFeedback.msg"
+  "msg/MotorFeedback12.msg"
   DEPENDENCIES std_msgs geometry_msgs)
   
 if(BUILD_TESTING)
