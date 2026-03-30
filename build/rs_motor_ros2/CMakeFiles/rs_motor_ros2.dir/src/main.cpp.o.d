@@ -239,8 +239,8 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
- /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_feedback12.hpp \
- /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__struct.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_command12.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__struct.hpp \
  /usr/include/c++/11/algorithm /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \
@@ -266,26 +266,32 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_initialization.h \
  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__struct.hpp \
  /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__struct.hpp \
- /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__struct.hpp \
- /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__builder.hpp \
- /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__traits.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command__struct.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__builder.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__traits.hpp \
  /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/traits.hpp \
  /usr/include/c++/11/codecvt \
  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__traits.hpp \
  /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__traits.hpp \
- /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__traits.hpp \
- /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__type_support.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command__traits.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__type_support.hpp \
  /opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/rosidl_generator_cpp__visibility_control.hpp \
  /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_typesupport_cpp/message_type_support.hpp \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_feedback12.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__struct.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__struct.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__builder.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__traits.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__traits.hpp \
+ /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__type_support.hpp \
+ /usr/include/c++/11/mutex /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h \
  /opt/ros/humble/include/rclcpp/rclcpp/node.hpp \
- /usr/include/c++/11/condition_variable \
- /usr/include/c++/11/bits/std_mutex.h \
- /usr/include/c++/11/bits/unique_lock.h /usr/include/c++/11/list \
+ /usr/include/c++/11/condition_variable /usr/include/c++/11/list \
  /usr/include/c++/11/bits/stl_list.h /usr/include/c++/11/bits/list.tcc \
- /usr/include/c++/11/mutex \
  /opt/ros/humble/include/rcutils/rcutils/macros.h \
  /opt/ros/humble/include/rcutils/rcutils/testing/fault_injection.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
