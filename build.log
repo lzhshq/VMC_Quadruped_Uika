@@ -1,0 +1,12 @@
+Starting >>> interfaces
+Starting >>> description
+Starting >>> estimation
+Starting >>> main_control
+Finished <<< description [0.10s]
+Finished <<< estimation [0.12s]
+Finished <<< main_control [0.13s]
+Finished <<< interfaces [0.33s]
+Starting >>> rs_motor_ros2
+Finished <<< rs_motor_ros2 [0.12s]
+
+Summary: 5 packages finished [0.62s]

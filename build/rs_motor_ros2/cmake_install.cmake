@@ -62,7 +62,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/rs_motor_ros2/rs_motor_ros2")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/rs_motor_ros2/rs_motor_ros2"
-         OLD_RPATH "/opt/ros/humble/lib:/home/lzh/VMC_Quadruped/install/interfaces/lib:"
+         OLD_RPATH "/home/lzh/VMC_Quadruped/install/interfaces/lib:/opt/ros/humble/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/rs_motor_ros2/rs_motor_ros2")
