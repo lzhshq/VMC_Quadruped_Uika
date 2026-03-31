@@ -5,7 +5,7 @@ namespace estimation {
 ContactDetectionNode::ContactDetectionNode()
     : Node("contact_detection_node"),
       first_callback_(true),
-      contact_threshold_(5.0)  // 5Nm 默认阈值,需要标定
+      contact_threshold_(1.3)  // 5Nm 默认阈值,需要标定
 {
     // 声明参数
     this->declare_parameter<double>("contact_threshold", contact_threshold_);
@@ -17,9 +17,9 @@ ContactDetectionNode::ContactDetectionNode()
         gm_observers_[i] = std::make_unique<GMObserver>(alpha, contact_threshold_);
     }
 
-    // 订阅关节反馈
+    // 订阅电机反馈
     motor_feedback_sub_ = this->create_subscription<interfaces::msg::MotorFeedback12>(
-        "/joint_feedback",
+        "/motor_feedback",
         100,  // QoS history depth
         [this](const interfaces::msg::MotorFeedback12::SharedPtr msg) {
             this->on_motor_feedback(msg);

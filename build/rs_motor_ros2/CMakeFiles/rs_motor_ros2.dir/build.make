@@ -145,7 +145,7 @@ rs_motor_ros2: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_fastrtps
 rs_motor_ros2: /opt/ros/humble/lib/libstd_msgs__rosidl_typesupport_fastrtps_cpp.so
 rs_motor_ros2: /opt/ros/humble/lib/libbuiltin_interfaces__rosidl_typesupport_fastrtps_cpp.so
 rs_motor_ros2: /opt/ros/humble/lib/librosidl_typesupport_fastrtps_cpp.so
-rs_motor_ros2: /opt/ros/humble/lib/libfastcdr.so.1.0.24
+rs_motor_ros2: /opt/ros/humble/lib/libfastcdr.so.1.0.29
 rs_motor_ros2: /opt/ros/humble/lib/librmw.so
 rs_motor_ros2: /opt/ros/humble/lib/libsensor_msgs__rosidl_typesupport_introspection_c.so
 rs_motor_ros2: /opt/ros/humble/lib/libgeometry_msgs__rosidl_typesupport_introspection_c.so

@@ -297,8 +297,8 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
-  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_feedback12.hpp \
-  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__struct.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_command12.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__struct.hpp \
   /usr/include/c++/11/algorithm \
   /usr/include/c++/11/bits/stl_algo.h \
   /usr/include/c++/11/bits/algorithmfwd.h \
@@ -329,28 +329,35 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_initialization.h \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__struct.hpp \
   /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__struct.hpp \
-  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__struct.hpp \
-  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__builder.hpp \
-  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__traits.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command__struct.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__builder.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__traits.hpp \
   /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/traits.hpp \
   /usr/include/c++/11/codecvt \
   /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__traits.hpp \
   /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__traits.hpp \
-  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__traits.hpp \
-  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__type_support.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command__traits.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__type_support.hpp \
   /opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
   /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/rosidl_generator_cpp__visibility_control.hpp \
   /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_typesupport_cpp/message_type_support.hpp \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h \
   /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
-  /opt/ros/humble/include/rclcpp/rclcpp/node.hpp \
-  /usr/include/c++/11/condition_variable \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_feedback12.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__struct.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__struct.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__builder.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__traits.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__traits.hpp \
+  /home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__type_support.hpp \
+  /usr/include/c++/11/mutex \
   /usr/include/c++/11/bits/std_mutex.h \
   /usr/include/c++/11/bits/unique_lock.h \
+  /opt/ros/humble/include/rclcpp/rclcpp/node.hpp \
+  /usr/include/c++/11/condition_variable \
   /usr/include/c++/11/list \
   /usr/include/c++/11/bits/stl_list.h \
   /usr/include/c++/11/bits/list.tcc \
-  /usr/include/c++/11/mutex \
   /opt/ros/humble/include/rcutils/rcutils/macros.h \
   /opt/ros/humble/include/rcutils/rcutils/testing/fault_injection.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
@@ -487,6 +494,7 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
   /opt/ros/humble/include/rmw/rmw/topic_endpoint_info_array.h \
   /opt/ros/humble/include/rmw/rmw/topic_endpoint_info.h \
   /opt/ros/humble/include/rclcpp/rclcpp/event.hpp \
+  /opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/detail/node_interfaces_helpers.hpp \
   /opt/ros/humble/include/rclcpp/rclcpp/qos.hpp \
   /opt/ros/humble/include/rclcpp/rclcpp/duration.hpp \
   /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/duration.hpp \
@@ -746,8 +754,6 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/thread_safe_synchronization.hpp:
 
-/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/static_storage.hpp:
-
 /opt/ros/humble/include/rclcpp/rclcpp/wait_result_kind.hpp:
 
 /opt/ros/humble/include/rclcpp/rclcpp/wait_result.hpp:
@@ -765,8 +771,6 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/set_parameters_atomically.hpp:
 
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/set_parameters__struct.hpp:
-
-/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__type_support.hpp:
 
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__traits.hpp:
 
@@ -997,6 +1001,20 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 /opt/ros/humble/include/rclcpp/rclcpp/time.hpp:
 
 /opt/ros/humble/include/rclcpp/rclcpp/timer.hpp:
+
+/opt/ros/humble/include/rclcpp/rclcpp/subscription_content_filter_options.hpp:
+
+/opt/ros/humble/include/rclcpp/rclcpp/intra_process_buffer_type.hpp:
+
+/opt/ros/humble/include/rclcpp/rclcpp/experimental/create_intra_process_buffer.hpp:
+
+/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp:
+
+/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process_buffer.hpp:
+
+/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/buffer_implementation_base.hpp:
+
+/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process.hpp:
 
 /usr/include/c++/11/bits/erase_if.h:
 
@@ -1278,6 +1296,10 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /usr/include/c++/11/bits/stl_algo.h:
 
+/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/ring_buffer_implementation.hpp:
+
+/usr/include/c++/11/bits/ostream.tcc:
+
 /usr/include/c++/11/new:
 
 /usr/include/c++/11/bits/sstream.tcc:
@@ -1322,13 +1344,15 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /usr/include/c++/11/bits/ostream_insert.h:
 
+/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/intra_process_buffer.hpp:
+
+/usr/include/c++/11/string:
+
 /usr/include/c++/11/bits/std_thread.h:
 
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
-
-/opt/ros/humble/include/rclcpp/rclcpp/intra_process_buffer_type.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
@@ -1584,6 +1608,10 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /opt/ros/humble/include/rclcpp/rclcpp/expand_topic_or_service_name.hpp:
 
+/opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/static_storage.hpp:
+
+/opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/detail/node_interfaces_helpers.hpp:
+
 /usr/include/c++/11/bits/localefwd.h:
 
 /usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
@@ -1643,6 +1671,8 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
 /usr/include/c++/11/ext/new_allocator.h:
+
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command__traits.hpp:
 
 /usr/include/c++/11/bits/char_traits.h:
 
@@ -1724,6 +1754,8 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /opt/ros/humble/include/tracetools/tracetools/utils.hpp:
 
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__traits.hpp:
+
 /usr/include/asm-generic/ioctl.h:
 
 /usr/include/x86_64-linux-gnu/bits/ioctl-types.h:
@@ -1758,21 +1790,15 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/parameter__struct.hpp:
 
-/usr/include/c++/11/typeindex:
-
-/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_feedback12.hpp:
-
-/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__struct.hpp:
-
-/opt/ros/humble/include/rmw/rmw/network_flow_endpoint.h:
-
-/usr/include/c++/11/algorithm:
-
 /usr/include/c++/11/bits/cxxabi_forced.h:
 
 /usr/include/c++/11/bits/algorithmfwd.h:
 
 /usr/include/c++/11/pstl/execution_defs.h:
+
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__struct.hpp:
+
+/usr/include/c++/11/algorithm:
 
 /opt/ros/humble/include/rclcpp/rclcpp/wait_set.hpp:
 
@@ -1791,6 +1817,8 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 /usr/include/c++/11/bits/hashtable_policy.h:
 
 /usr/include/c++/11/bits/unordered_map.h:
+
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__builder.hpp:
 
 /usr/include/c++/11/memory:
 
@@ -1820,10 +1848,6 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /usr/include/c++/11/pstl/glue_memory_defs.h:
 
-/usr/include/c++/11/string:
-
-/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/intra_process_buffer.hpp:
-
 /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/bounded_vector.hpp:
 
 /usr/include/c++/11/bits/stl_map.h:
@@ -1836,17 +1860,17 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__struct.hpp:
 
-/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__traits.hpp:
+/opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/list_parameters__type_support.hpp:
 
-/opt/ros/humble/include/rmw/rmw/names_and_types.h:
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command__struct.hpp:
+
+/opt/ros/humble/include/rcutils/rcutils/error_handling.h:
 
 /opt/ros/humble/include/rclcpp/rclcpp/node_interfaces/node_waitables_interface.hpp:
 
 /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__traits.hpp:
 
-/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__traits.hpp:
-
-/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__type_support.hpp:
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_command12__type_support.hpp:
 
 /opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h:
 
@@ -1854,9 +1878,25 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_typesupport_cpp/message_type_support.hpp:
 
-/usr/include/c++/11/list:
+/usr/include/c++/11/typeindex:
+
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_feedback12.hpp:
+
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__struct.hpp:
+
+/opt/ros/humble/include/rmw/rmw/network_flow_endpoint.h:
+
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__traits.hpp:
+
+/opt/ros/humble/include/rmw/rmw/names_and_types.h:
+
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback__traits.hpp:
+
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/detail/motor_feedback12__type_support.hpp:
 
 /usr/include/c++/11/mutex:
+
+/usr/include/c++/11/list:
 
 /opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:
 
@@ -1881,8 +1921,6 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 /opt/ros/humble/include/rcl/rcl/error_handling.h:
 
 /opt/ros/humble/include/rcutils/rcutils/types/hash_map.h:
-
-/opt/ros/humble/include/rcutils/rcutils/error_handling.h:
 
 /usr/include/c++/11/stdlib.h:
 
@@ -1923,10 +1961,6 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /opt/ros/humble/include/rmw/rmw/rmw.h:
-
-/usr/include/c++/11/bits/ostream.tcc:
-
-/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/ring_buffer_implementation.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
 
@@ -2017,8 +2051,6 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 /usr/include/c++/11/bits/stl_construct.h:
 
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/floating_point_range__traits.hpp:
-
-/opt/ros/humble/include/rclcpp/rclcpp/experimental/buffers/buffer_implementation_base.hpp:
 
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/integer_range__traits.hpp:
 
@@ -2148,9 +2180,9 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 
 /opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:
 
-/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__builder.hpp:
+/home/lzh/VMC_Quadruped/install/interfaces/include/interfaces/interfaces/msg/motor_command12.hpp:
 
-/opt/ros/humble/include/rclcpp/rclcpp/subscription_content_filter_options.hpp:
+/opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/duration__builder.hpp:
 
 /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp:
 
@@ -2195,11 +2227,3 @@ CMakeFiles/rs_motor_ros2.dir/src/main.cpp.o: /home/lzh/VMC_Quadruped/src/robstri
 /opt/ros/humble/include/rclcpp/rclcpp/create_generic_subscription.hpp:
 
 /usr/include/c++/11/shared_mutex:
-
-/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process.hpp:
-
-/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp:
-
-/opt/ros/humble/include/rclcpp/rclcpp/experimental/subscription_intra_process_buffer.hpp:
-
-/opt/ros/humble/include/rclcpp/rclcpp/experimental/create_intra_process_buffer.hpp:

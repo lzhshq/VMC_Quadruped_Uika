@@ -356,6 +356,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/rust_packages" TYPE FILE FILES "/home/lzh/VMC_Quadruped/build/interfaces/ament_cmake_index/share/ament_index/resource_index/rust_packages/interfaces")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/interfaces" TYPE DIRECTORY FILES "/home/lzh/VMC_Quadruped/build/interfaces/rosidl_generator_rs/interfaces/rust")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/interfaces/msg" TYPE FILE FILES "/home/lzh/VMC_Quadruped/build/interfaces/rosidl_adapter/interfaces/msg/BaseState.idl")
 endif()
 
@@ -693,6 +701,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/lzh/VMC_Quadruped/build/interfaces/interfaces__py/cmake_install.cmake")
+  include("/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/cmake_install.cmake")
 
 endif()
 

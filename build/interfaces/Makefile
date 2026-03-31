@@ -405,6 +405,19 @@ interfaces__py/fast:
 	$(MAKE) $(MAKESILENT) -f interfaces__py/CMakeFiles/interfaces__py.dir/build.make interfaces__py/CMakeFiles/interfaces__py.dir/build
 .PHONY : interfaces__py/fast
 
+#=============================================================================
+# Target rules for targets named interfaces__rs
+
+# Build rule for target.
+interfaces__rs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 interfaces__rs
+.PHONY : interfaces__rs
+
+# fast build rule for target.
+interfaces__rs/fast:
+	$(MAKE) $(MAKESILENT) -f interfaces__rs/CMakeFiles/interfaces__rs.dir/build.make interfaces__rs/CMakeFiles/interfaces__rs.dir/build
+.PHONY : interfaces__rs/fast
+
 rosidl_generator_c/interfaces/msg/detail/base_state__functions.o: rosidl_generator_c/interfaces/msg/detail/base_state__functions.c.o
 .PHONY : rosidl_generator_c/interfaces/msg/detail/base_state__functions.o
 
@@ -2415,6 +2428,7 @@ help:
 	@echo "... interfaces"
 	@echo "... interfaces__cpp"
 	@echo "... interfaces__py"
+	@echo "... interfaces__rs"
 	@echo "... interfaces_uninstall"
 	@echo "... uninstall"
 	@echo "... interfaces__rosidl_generator_c"

@@ -212,6 +212,12 @@
 /home/lzh/VMC_Quadruped/install/interfaces/local/lib/python3.10/dist-packages/interfaces/interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
 /home/lzh/VMC_Quadruped/install/interfaces/local/lib/python3.10/dist-packages/interfaces/interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
 /home/lzh/VMC_Quadruped/install/interfaces/lib/libinterfaces__rosidl_generator_py.so
+/home/lzh/VMC_Quadruped/install/interfaces/share/ament_index/resource_index/rust_packages/interfaces
+/home/lzh/VMC_Quadruped/install/interfaces/share/interfaces/rust/Cargo.toml
+/home/lzh/VMC_Quadruped/install/interfaces/share/interfaces/rust/build.rs
+/home/lzh/VMC_Quadruped/install/interfaces/share/interfaces/rust/src/msg/rmw.rs
+/home/lzh/VMC_Quadruped/install/interfaces/share/interfaces/rust/src/msg.rs
+/home/lzh/VMC_Quadruped/install/interfaces/share/interfaces/rust/src/lib.rs
 /home/lzh/VMC_Quadruped/install/interfaces/share/interfaces/msg/BaseState.idl
 /home/lzh/VMC_Quadruped/install/interfaces/share/interfaces/msg/ContactState.idl
 /home/lzh/VMC_Quadruped/install/interfaces/share/interfaces/msg/GaitPhase.idl

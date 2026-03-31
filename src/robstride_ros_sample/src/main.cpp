@@ -21,24 +21,54 @@ struct MotorConfig {
   int actuator_type;
 };
 
+// 电机标定参数
+struct MotorCalibration {
+    double reduction_ratio;   // 减速比
+    double zero_offset;       // 零位偏移 (rad)
+    double direction;        // 方向 (+1 或 -1)
+};
+
+// 12个电机独立标定参数 (需要实际标定)
+// 电机索引按腿顺序: fl, rl, rr, fr
+// fl=(0,1,2), rl=(3,4,5), rr=(6,7,8), fr=(9,10,11)
+static const std::array<MotorCalibration, 12> MOTOR_CALIB = {{
+    // FL腿 (can0)
+    {1.0, 0.0, -1.0},   // 0: fl_hip
+    {1.0, 0.0, -1.0},   // 1: fl_thigh
+    {1.87, 0.0, 1.0},  // 2: fl_calf
+    // RL腿 (can1)
+    {1.0, 0.0, 1.0},   // 3: rl_hip
+    {1.0, 0.0, -1.0},   // 4: rl_thigh
+    {1.87, 0.0, 1.0},  // 5: rl_calf
+    // RR腿 (can2)
+    {1.0, 0.0, 1.0},   // 6: rr_hip
+    {1.0, 0.0, 1.0},   // 7: rr_thigh
+    {1.87, 0.0, 1.0},  // 8: rr_calf
+    // FR腿 (can3)
+    {1.0, 0.0, 1.0},   // 9: fr_hip
+    {1.0, 0.0, 1.0},   // 10: fr_thigh
+    {1.87, 0.0, 1.0},  // 11: fr_calf
+}};
+
 // 12个电机配置: CAN0-3各3个电机, 全部使用ROBSTRIDE_02类型
+// 腿顺序: fl(can0), rl(can1), rr(can2), fr(can3)
 static const std::vector<MotorConfig> MOTOR_CONFIGS = {
-    // CAN0
-    {"can0", 0xFF, 1,  2},
-    {"can0", 0xFF, 2,  2},
-    {"can0", 0xFF, 3,  2},
-    // CAN1
-    {"can1", 0xFF, 4,  2},
-    {"can1", 0xFF, 5,  2},
-    {"can1", 0xFF, 6,  2},
-    // CAN2
-    {"can2", 0xFF, 7,  2},
-    {"can2", 0xFF, 8,  2},
-    {"can2", 0xFF, 9,  2},
-    // CAN3
-    {"can3", 0xFF, 10, 2},
-    {"can3", 0xFF, 11, 2},
-    {"can3", 0xFF, 12, 2},
+    // CAN0: FL腿
+    {"can0", 0xFF, 1,  2},   // fl_hip
+    {"can0", 0xFF, 2,  2},   // fl_thigh
+    {"can0", 0xFF, 3,  2},   // fl_calf
+    // CAN1: RL腿
+    {"can1", 0xFF, 4,  2},   // rl_hip
+    {"can1", 0xFF, 5,  2},   // rl_thigh
+    {"can1", 0xFF, 6,  2},   // rl_calf
+    // CAN2: RR腿
+    {"can2", 0xFF, 7,  2},   // rr_hip
+    {"can2", 0xFF, 8,  2},   // rr_thigh
+    {"can2", 0xFF, 9,  2},   // rr_calf
+    // CAN3: FR腿
+    {"can3", 0xFF, 10, 2},   // fr_hip
+    {"can3", 0xFF, 11, 2},   // fr_thigh
+    {"can3", 0xFF, 12, 2},   // fr_calf
 };
 
 class MotorControlSample : public rclcpp::Node {
@@ -72,9 +102,9 @@ public:
     // 创建电机反馈发布者
     feedback_pub_ = this->create_publisher<interfaces::msg::MotorFeedback12>("/motor_feedback", 10);
 
-    // 创建定时器，每10ms发布一次反馈
+    // 创建定时器，每20ms发布一次反馈 (50Hz)
     feedback_timer_ = this->create_wall_timer(
-        std::chrono::milliseconds(10),
+        std::chrono::milliseconds(20),
         [this]() {
           this->publish_feedback();
         });
@@ -117,14 +147,15 @@ private:
     msg.header.frame_id = "motor_feedback";
 
     // 填充12个电机的反馈数据
-    msg.fl_hip.torque = motors_[0]->torque_;
-    msg.fl_hip.position = motors_[0]->position_;
-    msg.fl_hip.velocity = motors_[0]->velocity_;
+    // 电机索引: fl=(0,1,2), rl=(3,4,5), rr=(6,7,8), fr=(9,10,11)
+    msg.fl_hip.torque =- motors_[0]->torque_;
+    msg.fl_hip.position =- motors_[0]->position_;
+    msg.fl_hip.velocity =- motors_[0]->velocity_;
     msg.fl_hip.temperature = motors_[0]->temperature_;
 
-    msg.fl_thigh.torque = motors_[1]->torque_;
-    msg.fl_thigh.position = motors_[1]->position_;
-    msg.fl_thigh.velocity = motors_[1]->velocity_;
+    msg.fl_thigh.torque =- motors_[1]->torque_;
+    msg.fl_thigh.position =- motors_[1]->position_;
+    msg.fl_thigh.velocity =- motors_[1]->velocity_;
     msg.fl_thigh.temperature = motors_[1]->temperature_;
 
     msg.fl_calf.torque = motors_[2]->torque_;
@@ -132,50 +163,50 @@ private:
     msg.fl_calf.velocity = motors_[2]->velocity_;
     msg.fl_calf.temperature = motors_[2]->temperature_;
 
-    msg.fr_hip.torque = motors_[3]->torque_;
-    msg.fr_hip.position = motors_[3]->position_;
-    msg.fr_hip.velocity = motors_[3]->velocity_;
-    msg.fr_hip.temperature = motors_[3]->temperature_;
+    msg.rl_hip.torque =- motors_[3]->torque_;
+    msg.rl_hip.position =- motors_[3]->position_;
+    msg.rl_hip.velocity =- motors_[3]->velocity_;
+    msg.rl_hip.temperature = motors_[3]->temperature_;
 
-    msg.fr_thigh.torque = motors_[4]->torque_;
-    msg.fr_thigh.position = motors_[4]->position_;
-    msg.fr_thigh.velocity = motors_[4]->velocity_;
-    msg.fr_thigh.temperature = motors_[4]->temperature_;
+    msg.rl_thigh.torque =- motors_[4]->torque_;
+    msg.rl_thigh.position =- motors_[4]->position_;
+    msg.rl_thigh.velocity =- motors_[4]->velocity_;
+    msg.rl_thigh.temperature = motors_[4]->temperature_;
 
-    msg.fr_calf.torque = motors_[5]->torque_;
-    msg.fr_calf.position = motors_[5]->position_;
-    msg.fr_calf.velocity = motors_[5]->velocity_;
-    msg.fr_calf.temperature = motors_[5]->temperature_;
+    msg.rl_calf.torque = motors_[5]->torque_;
+    msg.rl_calf.position = motors_[5]->position_;
+    msg.rl_calf.velocity = motors_[5]->velocity_;
+    msg.rl_calf.temperature = motors_[5]->temperature_;
 
-    msg.rl_hip.torque = motors_[6]->torque_;
-    msg.rl_hip.position = motors_[6]->position_;
-    msg.rl_hip.velocity = motors_[6]->velocity_;
-    msg.rl_hip.temperature = motors_[6]->temperature_;
+    msg.rr_hip.torque =- motors_[6]->torque_;
+    msg.rr_hip.position =- motors_[6]->position_;
+    msg.rr_hip.velocity =- motors_[6]->velocity_;
+    msg.rr_hip.temperature = motors_[6]->temperature_;
 
-    msg.rl_thigh.torque = motors_[7]->torque_;
-    msg.rl_thigh.position = motors_[7]->position_;
-    msg.rl_thigh.velocity = motors_[7]->velocity_;
-    msg.rl_thigh.temperature = motors_[7]->temperature_;
+    msg.rr_thigh.torque =- motors_[7]->torque_;
+    msg.rr_thigh.position =- motors_[7]->position_;
+    msg.rr_thigh.velocity =- motors_[7]->velocity_;
+    msg.rr_thigh.temperature = motors_[7]->temperature_;
 
-    msg.rl_calf.torque = motors_[8]->torque_;
-    msg.rl_calf.position = motors_[8]->position_;
-    msg.rl_calf.velocity = motors_[8]->velocity_;
-    msg.rl_calf.temperature = motors_[8]->temperature_;
+    msg.rr_calf.torque = motors_[8]->torque_;
+    msg.rr_calf.position = motors_[8]->position_;
+    msg.rr_calf.velocity = motors_[8]->velocity_;
+    msg.rr_calf.temperature = motors_[8]->temperature_;
 
-    msg.rr_hip.torque = motors_[9]->torque_;
-    msg.rr_hip.position = motors_[9]->position_;
-    msg.rr_hip.velocity = motors_[9]->velocity_;
-    msg.rr_hip.temperature = motors_[9]->temperature_;
+    msg.fr_hip.torque =- motors_[9]->torque_;
+    msg.fr_hip.position =- motors_[9]->position_;
+    msg.fr_hip.velocity =- motors_[9]->velocity_;
+    msg.fr_hip.temperature = motors_[9]->temperature_;
 
-    msg.rr_thigh.torque = motors_[10]->torque_;
-    msg.rr_thigh.position = motors_[10]->position_;
-    msg.rr_thigh.velocity = motors_[10]->velocity_;
-    msg.rr_thigh.temperature = motors_[10]->temperature_;
+    msg.fr_thigh.torque =- motors_[10]->torque_;
+    msg.fr_thigh.position =- motors_[10]->position_;
+    msg.fr_thigh.velocity =- motors_[10]->velocity_;
+    msg.fr_thigh.temperature = motors_[10]->temperature_;
 
-    msg.rr_calf.torque = motors_[11]->torque_;
-    msg.rr_calf.position = motors_[11]->position_;
-    msg.rr_calf.velocity = motors_[11]->velocity_;
-    msg.rr_calf.temperature = motors_[11]->temperature_;
+    msg.fr_calf.torque = motors_[11]->torque_;
+    msg.fr_calf.position = motors_[11]->position_;
+    msg.fr_calf.velocity = motors_[11]->velocity_;
+    msg.fr_calf.temperature = motors_[11]->temperature_;
 
     feedback_pub_->publish(msg);
   }
@@ -203,42 +234,43 @@ private:
       const auto& cmd = latest_command_;
 
       // 向所有电机发送运控命令
+      // 电机索引: fl=(0,1,2), rl=(3,4,5), rr=(6,7,8), fr=(9,10,11)
       motors_[0]->send_motion_command(
-          cmd.fl_hip.torque, cmd.fl_hip.position, cmd.fl_hip.velocity,
+          cmd.fl_hip.torque, -cmd.fl_hip.position, -cmd.fl_hip.velocity,
           cmd.fl_hip.kp, cmd.fl_hip.kd);
       motors_[1]->send_motion_command(
-          cmd.fl_thigh.torque, cmd.fl_thigh.position, cmd.fl_thigh.velocity,
+          cmd.fl_thigh.torque, -cmd.fl_thigh.position, -cmd.fl_thigh.velocity,
           cmd.fl_thigh.kp, cmd.fl_thigh.kd);
       motors_[2]->send_motion_command(
-          cmd.fl_calf.torque, cmd.fl_calf.position, cmd.fl_calf.velocity,
+          cmd.fl_calf.torque, cmd.fl_calf.position*1.87, cmd.fl_calf.velocity,
           cmd.fl_calf.kp, cmd.fl_calf.kd);
       motors_[3]->send_motion_command(
-          cmd.fr_hip.torque, cmd.fr_hip.position, cmd.fr_hip.velocity,
-          cmd.fr_hip.kp, cmd.fr_hip.kd);
-      motors_[4]->send_motion_command(
-          cmd.fr_thigh.torque, cmd.fr_thigh.position, cmd.fr_thigh.velocity,
-          cmd.fr_thigh.kp, cmd.fr_thigh.kd);
-      motors_[5]->send_motion_command(
-          cmd.fr_calf.torque, cmd.fr_calf.position, cmd.fr_calf.velocity,
-          cmd.fr_calf.kp, cmd.fr_calf.kd);
-      motors_[6]->send_motion_command(
-          cmd.rl_hip.torque, cmd.rl_hip.position, cmd.rl_hip.velocity,
+          cmd.rl_hip.torque, -cmd.rl_hip.position, -cmd.rl_hip.velocity,
           cmd.rl_hip.kp, cmd.rl_hip.kd);
-      motors_[7]->send_motion_command(
-          cmd.rl_thigh.torque, cmd.rl_thigh.position, cmd.rl_thigh.velocity,
+      motors_[4]->send_motion_command(
+          cmd.rl_thigh.torque, -cmd.rl_thigh.position, -cmd.rl_thigh.velocity,
           cmd.rl_thigh.kp, cmd.rl_thigh.kd);
-      motors_[8]->send_motion_command(
-          cmd.rl_calf.torque, cmd.rl_calf.position, cmd.rl_calf.velocity,
+      motors_[5]->send_motion_command(
+          cmd.rl_calf.torque, cmd.rl_calf.position*1.87, cmd.rl_calf.velocity,
           cmd.rl_calf.kp, cmd.rl_calf.kd);
-      motors_[9]->send_motion_command(
-          cmd.rr_hip.torque, cmd.rr_hip.position, cmd.rr_hip.velocity,
+      motors_[6]->send_motion_command(
+          cmd.rr_hip.torque, -cmd.rr_hip.position, -cmd.rr_hip.velocity,
           cmd.rr_hip.kp, cmd.rr_hip.kd);
-      motors_[10]->send_motion_command(
-          cmd.rr_thigh.torque, cmd.rr_thigh.position, cmd.rr_thigh.velocity,
+      motors_[7]->send_motion_command(
+          cmd.rr_thigh.torque, -cmd.rr_thigh.position, -cmd.rr_thigh.velocity,
           cmd.rr_thigh.kp, cmd.rr_thigh.kd);
-      motors_[11]->send_motion_command(
-          cmd.rr_calf.torque, cmd.rr_calf.position, cmd.rr_calf.velocity,
+      motors_[8]->send_motion_command(
+          cmd.rr_calf.torque, cmd.rr_calf.position*1.87, cmd.rr_calf.velocity,
           cmd.rr_calf.kp, cmd.rr_calf.kd);
+      motors_[9]->send_motion_command(
+          cmd.fr_hip.torque, -cmd.fr_hip.position, -cmd.fr_hip.velocity,
+          cmd.fr_hip.kp, cmd.fr_hip.kd);
+      motors_[10]->send_motion_command(
+          cmd.fr_thigh.torque, -cmd.fr_thigh.position, -cmd.fr_thigh.velocity,
+          cmd.fr_thigh.kp, cmd.fr_thigh.kd);
+      motors_[11]->send_motion_command(
+          cmd.fr_calf.torque, cmd.fr_calf.position*1.87, cmd.fr_calf.velocity,
+          cmd.fr_calf.kp, cmd.fr_calf.kd);
 
       std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }

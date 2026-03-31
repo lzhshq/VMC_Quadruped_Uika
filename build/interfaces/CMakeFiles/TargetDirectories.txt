@@ -30,3 +30,11 @@
 /home/lzh/VMC_Quadruped/build/interfaces/interfaces__py/CMakeFiles/install.dir
 /home/lzh/VMC_Quadruped/build/interfaces/interfaces__py/CMakeFiles/install/local.dir
 /home/lzh/VMC_Quadruped/build/interfaces/interfaces__py/CMakeFiles/install/strip.dir
+/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/CMakeFiles/interfaces__rs.dir
+/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/CMakeFiles/test.dir
+/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/CMakeFiles/edit_cache.dir
+/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/CMakeFiles/rebuild_cache.dir
+/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/CMakeFiles/list_install_components.dir
+/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/CMakeFiles/install.dir
+/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/CMakeFiles/install/local.dir
+/home/lzh/VMC_Quadruped/build/interfaces/interfaces__rs/CMakeFiles/install/strip.dir
