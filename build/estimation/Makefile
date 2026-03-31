@@ -197,6 +197,128 @@ estimation_uninstall/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_uninstall.dir/build.make CMakeFiles/estimation_uninstall.dir/build
 .PHONY : estimation_uninstall/fast
 
+#=============================================================================
+# Target rules for targets named estimation_kinematics
+
+# Build rule for target.
+estimation_kinematics: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 estimation_kinematics
+.PHONY : estimation_kinematics
+
+# fast build rule for target.
+estimation_kinematics/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_kinematics.dir/build.make CMakeFiles/estimation_kinematics.dir/build
+.PHONY : estimation_kinematics/fast
+
+#=============================================================================
+# Target rules for targets named contact_detection_node
+
+# Build rule for target.
+contact_detection_node: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 contact_detection_node
+.PHONY : contact_detection_node
+
+# fast build rule for target.
+contact_detection_node/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/build
+.PHONY : contact_detection_node/fast
+
+src/contact_detection_node.o: src/contact_detection_node.cpp.o
+.PHONY : src/contact_detection_node.o
+
+# target to build an object file
+src/contact_detection_node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/contact_detection_node.cpp.o
+.PHONY : src/contact_detection_node.cpp.o
+
+src/contact_detection_node.i: src/contact_detection_node.cpp.i
+.PHONY : src/contact_detection_node.i
+
+# target to preprocess a source file
+src/contact_detection_node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/contact_detection_node.cpp.i
+.PHONY : src/contact_detection_node.cpp.i
+
+src/contact_detection_node.s: src/contact_detection_node.cpp.s
+.PHONY : src/contact_detection_node.s
+
+# target to generate assembly for a file
+src/contact_detection_node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/contact_detection_node.cpp.s
+.PHONY : src/contact_detection_node.cpp.s
+
+src/gm_observer.o: src/gm_observer.cpp.o
+.PHONY : src/gm_observer.o
+
+# target to build an object file
+src/gm_observer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/gm_observer.cpp.o
+.PHONY : src/gm_observer.cpp.o
+
+src/gm_observer.i: src/gm_observer.cpp.i
+.PHONY : src/gm_observer.i
+
+# target to preprocess a source file
+src/gm_observer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/gm_observer.cpp.i
+.PHONY : src/gm_observer.cpp.i
+
+src/gm_observer.s: src/gm_observer.cpp.s
+.PHONY : src/gm_observer.s
+
+# target to generate assembly for a file
+src/gm_observer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/gm_observer.cpp.s
+.PHONY : src/gm_observer.cpp.s
+
+src/leg_dynamics.o: src/leg_dynamics.cpp.o
+.PHONY : src/leg_dynamics.o
+
+# target to build an object file
+src/leg_dynamics.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_kinematics.dir/build.make CMakeFiles/estimation_kinematics.dir/src/leg_dynamics.cpp.o
+.PHONY : src/leg_dynamics.cpp.o
+
+src/leg_dynamics.i: src/leg_dynamics.cpp.i
+.PHONY : src/leg_dynamics.i
+
+# target to preprocess a source file
+src/leg_dynamics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_kinematics.dir/build.make CMakeFiles/estimation_kinematics.dir/src/leg_dynamics.cpp.i
+.PHONY : src/leg_dynamics.cpp.i
+
+src/leg_dynamics.s: src/leg_dynamics.cpp.s
+.PHONY : src/leg_dynamics.s
+
+# target to generate assembly for a file
+src/leg_dynamics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_kinematics.dir/build.make CMakeFiles/estimation_kinematics.dir/src/leg_dynamics.cpp.s
+.PHONY : src/leg_dynamics.cpp.s
+
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -212,6 +334,20 @@ help:
 	@echo "... test"
 	@echo "... estimation_uninstall"
 	@echo "... uninstall"
+	@echo "... contact_detection_node"
+	@echo "... estimation_kinematics"
+	@echo "... src/contact_detection_node.o"
+	@echo "... src/contact_detection_node.i"
+	@echo "... src/contact_detection_node.s"
+	@echo "... src/gm_observer.o"
+	@echo "... src/gm_observer.i"
+	@echo "... src/gm_observer.s"
+	@echo "... src/leg_dynamics.o"
+	@echo "... src/leg_dynamics.i"
+	@echo "... src/leg_dynamics.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

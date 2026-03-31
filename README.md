@@ -78,7 +78,7 @@
 
 ---
 
-## 3.1 `quadruped_description`
+## 3.1 `description`
 
 ### 功能
 
@@ -141,7 +141,7 @@
 
 ---
 
-## 3.2 `quadruped_interfaces`
+## 3.2 `interfaces`
 
 ### 功能
 
@@ -213,7 +213,7 @@
 
 ---
 
-## 3.3 `quadruped_estimation`
+## 3.3 `estimation`
 
 ### 功能
 

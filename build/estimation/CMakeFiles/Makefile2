@@ -63,7 +63,8 @@ CMAKE_BINARY_DIR = /home/lzh/VMC_Quadruped/build/estimation
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all:
+all: CMakeFiles/estimation_kinematics.dir/all
+all: CMakeFiles/contact_detection_node.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -73,6 +74,8 @@ preinstall:
 # The main recursive "clean" target.
 clean: CMakeFiles/uninstall.dir/clean
 clean: CMakeFiles/estimation_uninstall.dir/clean
+clean: CMakeFiles/estimation_kinematics.dir/clean
+clean: CMakeFiles/contact_detection_node.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -126,6 +129,58 @@ estimation_uninstall: CMakeFiles/estimation_uninstall.dir/rule
 CMakeFiles/estimation_uninstall.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_uninstall.dir/build.make CMakeFiles/estimation_uninstall.dir/clean
 .PHONY : CMakeFiles/estimation_uninstall.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/estimation_kinematics.dir
+
+# All Build rule for target.
+CMakeFiles/estimation_kinematics.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_kinematics.dir/build.make CMakeFiles/estimation_kinematics.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_kinematics.dir/build.make CMakeFiles/estimation_kinematics.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lzh/VMC_Quadruped/build/estimation/CMakeFiles --progress-num=5,6 "Built target estimation_kinematics"
+.PHONY : CMakeFiles/estimation_kinematics.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/estimation_kinematics.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lzh/VMC_Quadruped/build/estimation/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/estimation_kinematics.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lzh/VMC_Quadruped/build/estimation/CMakeFiles 0
+.PHONY : CMakeFiles/estimation_kinematics.dir/rule
+
+# Convenience name for target.
+estimation_kinematics: CMakeFiles/estimation_kinematics.dir/rule
+.PHONY : estimation_kinematics
+
+# clean rule for target.
+CMakeFiles/estimation_kinematics.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/estimation_kinematics.dir/build.make CMakeFiles/estimation_kinematics.dir/clean
+.PHONY : CMakeFiles/estimation_kinematics.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/contact_detection_node.dir
+
+# All Build rule for target.
+CMakeFiles/contact_detection_node.dir/all: CMakeFiles/estimation_kinematics.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lzh/VMC_Quadruped/build/estimation/CMakeFiles --progress-num=1,2,3,4 "Built target contact_detection_node"
+.PHONY : CMakeFiles/contact_detection_node.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/contact_detection_node.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lzh/VMC_Quadruped/build/estimation/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/contact_detection_node.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lzh/VMC_Quadruped/build/estimation/CMakeFiles 0
+.PHONY : CMakeFiles/contact_detection_node.dir/rule
+
+# Convenience name for target.
+contact_detection_node: CMakeFiles/contact_detection_node.dir/rule
+.PHONY : contact_detection_node
+
+# clean rule for target.
+CMakeFiles/contact_detection_node.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/contact_detection_node.dir/build.make CMakeFiles/contact_detection_node.dir/clean
+.PHONY : CMakeFiles/contact_detection_node.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
