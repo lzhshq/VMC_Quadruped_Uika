@@ -1,0 +1,20 @@
+[100%] Built target xbox_vel_publisher
+-- Install configuration: ""
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/lib/xbox/xbox_vel_publisher
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/launch
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/launch/xbox.launch.py
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/package_run_dependencies/xbox
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/parent_prefix_path/xbox
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/ament_prefix_path.sh
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/path.sh
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/path.dsv
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.bash
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.sh
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.zsh
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.dsv
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/package.dsv
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/packages/xbox
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/cmake/xboxConfig.cmake
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/cmake/xboxConfig-version.cmake
+-- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/package.xml

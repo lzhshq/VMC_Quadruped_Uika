@@ -1,0 +1,24 @@
+[0.005s] Invoking command in '/home/lzh/Quadruped_Uika/build/xbox': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/lzh/Quadruped_Uika/build/xbox -- -j16 -l16
+[0.043s] [100%] Built target xbox_vel_publisher
+[0.050s] Invoked command in '/home/lzh/Quadruped_Uika/build/xbox' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/lzh/Quadruped_Uika/build/xbox -- -j16 -l16
+[0.056s] Invoking command in '/home/lzh/Quadruped_Uika/build/xbox': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/lzh/Quadruped_Uika/build/xbox
+[0.059s] -- Install configuration: ""
+[0.059s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/lib/xbox/xbox_vel_publisher
+[0.059s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/launch
+[0.059s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/launch/xbox.launch.py
+[0.059s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/package_run_dependencies/xbox
+[0.059s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/parent_prefix_path/xbox
+[0.059s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/ament_prefix_path.sh
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/ament_prefix_path.dsv
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/path.sh
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/path.dsv
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.bash
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.sh
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.zsh
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.dsv
+[0.060s] -- Installing: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/package.dsv
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/packages/xbox
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/cmake/xboxConfig.cmake
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/cmake/xboxConfig-version.cmake
+[0.060s] -- Up-to-date: /home/lzh/Quadruped_Uika/install/xbox/share/xbox/package.xml
+[0.061s] Invoked command in '/home/lzh/Quadruped_Uika/build/xbox' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/lzh/Quadruped_Uika/build/xbox

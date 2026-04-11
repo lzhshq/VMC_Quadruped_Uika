@@ -1,0 +1,17 @@
+/home/lzh/Quadruped_Uika/install/xbox/lib/xbox/xbox_vel_publisher
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/launch/xbox.launch.py
+/home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/package_run_dependencies/xbox
+/home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/parent_prefix_path/xbox
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/ament_prefix_path.sh
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/ament_prefix_path.dsv
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/path.sh
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/environment/path.dsv
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.bash
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.sh
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.zsh
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/local_setup.dsv
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/package.dsv
+/home/lzh/Quadruped_Uika/install/xbox/share/ament_index/resource_index/packages/xbox
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/cmake/xboxConfig.cmake
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/cmake/xboxConfig-version.cmake
+/home/lzh/Quadruped_Uika/install/xbox/share/xbox/package.xml

@@ -1,0 +1,240 @@
+<mujoco model="uika">
+  <!--
+    UIKA 四足机器人 MuJoCo MJCF 模型
+    从 UIKA.urdf 转换生成
+
+    使用 OBJ 格式 mesh 文件
+
+    单位: SI制 (米, 千克, 秒)
+    浮动基座: base 通过 freejoint 实现 6DOF
+  -->
+
+  <!-- ==================== 尺寸和仿真选项 ==================== -->
+  <size nconmax="200" njmax="200"/>
+  <option>
+    <flag contact="enable" constraint="enable"/>
+  </option>
+
+  <!-- ==================== 编译选项 ==================== -->
+  <compiler angle="radian" meshdir="../meshes_obj" balanceinertia="true"/>
+
+  <!-- ==================== 默认设置 ==================== -->
+  <default>
+    <joint damping="0.5" frictionloss="0.5" armature="0.01"/>
+    <geom friction="0.5" solref="0.004 1" solimp="0.1 0.5 0.01"/>
+  </default>
+
+  <!-- ==================== 视觉材质 ==================== -->
+  <asset>
+    <material name="body_gray" rgba="0.898 0.918 0.929 1"/>
+    <material name="limb_gray" rgba="0.776 0.757 0.737 1"/>
+    <material name="foot_black" rgba="0.298 0.298 0.298 1"/>
+    <material name="mat_ground" rgba="0.5 0.5 0.5 1"/>
+
+    <!-- Mesh 文件 (OBJ 格式) -->
+    <mesh file="base.obj"/>
+    <mesh file="FL_hip.obj"/>
+    <mesh file="FL_thigh.obj"/>
+    <mesh file="FL_calf.obj"/>
+    <mesh file="FL_foot.obj"/>
+    <mesh file="FR_hip.obj"/>
+    <mesh file="FR_thigh.obj"/>
+    <mesh file="FR_calf.obj"/>
+    <mesh file="FR_foot.obj"/>
+    <mesh file="BL_hip.obj"/>
+    <mesh file="BL_thigh.obj"/>
+    <mesh file="BL_calf.obj"/>
+    <mesh file="BL_foot.obj"/>
+    <mesh file="BR_hip.obj"/>
+    <mesh file="BR_thigh.obj"/>
+    <mesh file="BR_calf.obj"/>
+    <mesh file="BR_foot.obj"/>
+  </asset>
+
+  <!-- ==================== 世界坐标系 ==================== -->
+  <worldbody>
+    <!-- 地面 -->
+    <geom name="ground" type="plane" size="0 0 0.01" material="mat_ground" condim="3"/>
+
+    <!-- ==================== 基座 (浮动) ==================== -->
+    <body name="base" pos="0 0 0.3">
+      <freejoint name="base_joint"/>
+
+      <inertial
+        pos="0.0994 -0.00035 -0.0603"
+        mass="6.1"
+        fullinertia="0.0251 0.0760 0.0813 0.000092 -0.00692 -0.000016"/>
+
+      <!-- 视觉 mesh -->
+      <geom type="mesh" mesh="base" material="body_gray" group="1"/>
+      <!-- 简化碰撞几何体 -->
+      <geom type="box" size="0.2 0.12 0.06" pos="0.05 0 -0.05" density="0" contype="1" conaffinity="1"/>
+
+      <site name="imu_site" pos="0 0 0" size="0.01"/>
+
+      <!-- ==================== Front Left Leg ==================== -->
+      <body name="FL_hip" pos="0.153 0.06 -0.06">
+        <inertial pos="0.0415 0.0082 0.0086" mass="0.933" fullinertia="0.00116 0.00110 0.00111 -0.000051 -0.000067 -0.000146"/>
+        <geom type="mesh" mesh="FL_hip" material="body_gray" group="1"/>
+        <geom type="capsule" size="0.025 0.06" pos="0.02 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="FL_hip_joint" type="hinge" axis="1 0 0" range="-1.5 0" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="FL_thigh" pos="0.056 0.0484 0.0471">
+        <inertial pos="-0.0536 0.0351 -0.0164" mass="0.476" fullinertia="0.00108 0.00223 0.00221 0.000755 -0.000769 0.000473"/>
+        <geom type="mesh" mesh="FL_thigh" material="limb_gray" group="1"/>
+        <geom type="capsule" size="0.018 0.14" pos="0 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="FL_thigh_joint" type="hinge" axis="0 0.717 0.697" range="-0.785 0.785" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="FL_calf" pos="-0.1525 0.1096 -0.0740">
+        <inertial pos="0.0700 -0.0160 -0.0022" mass="0.147" fullinertia="0.0000227 0.000737 0.000736 0.000041 0.000042 0.000009"/>
+        <geom type="mesh" mesh="FL_calf" material="limb_gray" group="1"/>
+        <geom type="capsule" size="0.012 0.15" pos="0.03 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="FL_calf_joint" type="hinge" axis="0 0.717 0.697" range="0.1 1.11" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="FL_foot" pos="0.2117 -0.0025 -0.0168">
+        <inertial pos="-0.0105 -0.0044 0.0046" mass="0.047" fullinertia="0.00000818 0.00000918 0.00000915 0 0 0"/>
+        <geom type="mesh" mesh="FL_foot" material="foot_black" group="1"/>
+        <geom type="sphere" size="0.025" density="0" contype="1" conaffinity="1" friction="0.5 0.02 0.005"/>
+      </body>
+
+      <!-- ==================== Front Right Leg ==================== -->
+      <body name="FR_hip" pos="0.153 -0.06 -0.06">
+        <inertial pos="0.0416 -0.0104 0.0102" mass="0.933" fullinertia="0.00114 0.00107 0.00112 0.000038 -0.000035 0.000133"/>
+        <geom type="mesh" mesh="FR_hip" material="body_gray" group="1"/>
+        <geom type="capsule" size="0.025 0.06" pos="0.02 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="FR_hip_joint" type="hinge" axis="1 0 0" range="0 1.5" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="FR_thigh" pos="0.056 -0.0484 0.0471">
+        <inertial pos="-0.0547 -0.0357 -0.0169" mass="0.481" fullinertia="0.00112 0.00232 0.00230 -0.000791 -0.000803 -0.000490"/>
+        <geom type="mesh" mesh="FR_thigh" material="limb_gray" group="1"/>
+        <geom type="capsule" size="0.018 0.14" pos="0 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="FR_thigh_joint" type="hinge" axis="0 -0.717 0.697" range="-0.785 0.785" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="FR_calf" pos="-0.1525 -0.1096 -0.0740">
+        <inertial pos="0.0700 0.0160 -0.0022" mass="0.147" fullinertia="0.0000227 0.000737 0.000736 -0.000041 -0.000042 -0.000009"/>
+        <geom type="mesh" mesh="FR_calf" material="limb_gray" group="1"/>
+        <geom type="capsule" size="0.012 0.15" pos="0.03 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="FR_calf_joint" type="hinge" axis="0 -0.717 0.697" range="-1.11 -0.1" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="FR_foot" pos="0.2117 0.0025 -0.0168">
+        <inertial pos="-0.0105 0.0044 0.0046" mass="0.047" fullinertia="0.00000818 0.00000918 0.00000915 0 0 0"/>
+        <geom type="mesh" mesh="FR_foot" material="foot_black" group="1"/>
+        <geom type="sphere" size="0.025" density="0" contype="1" conaffinity="1" friction="0.5 0.02 0.005"/>
+      </body>
+
+      <!-- ==================== Back Left Leg ==================== -->
+      <body name="BL_hip" pos="-0.153 0.06 -0.06">
+        <inertial pos="-0.0416 0.0101 0.0105" mass="0.933" fullinertia="0.00114 0.00109 0.00110 0.000031 0.000030 -0.000137"/>
+        <geom type="mesh" mesh="BL_hip" material="body_gray" group="1"/>
+        <geom type="capsule" size="0.025 0.06" pos="-0.02 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="BL_hip_joint" type="hinge" axis="-1 0 0" range="0 1.5" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="BL_thigh" pos="-0.056 0.0484 0.0471">
+        <inertial pos="-0.0547 0.0357 -0.0169" mass="0.481" fullinertia="0.00112 0.00232 0.00230 0.000792 -0.000802 0.000490"/>
+        <geom type="mesh" mesh="BL_thigh" material="limb_gray" group="1"/>
+        <geom type="capsule" size="0.018 0.14" pos="0 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="BL_thigh_joint" type="hinge" axis="0 0.717 0.697" range="-0.785 0.785" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="BL_calf" pos="-0.1525 0.1096 -0.0740">
+        <inertial pos="0.0700 -0.0160 -0.0022" mass="0.147" fullinertia="0.0000227 0.000737 0.000736 0.000041 0.000042 0.000009"/>
+        <geom type="mesh" mesh="BL_calf" material="limb_gray" group="1"/>
+        <geom type="capsule" size="0.012 0.15" pos="0.03 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="BL_calf_joint" type="hinge" axis="0 0.717 0.697" range="0.1 1.11" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="BL_foot" pos="0.2117 -0.0025 -0.0168">
+        <inertial pos="-0.0105 -0.0044 0.0046" mass="0.047" fullinertia="0.00000818 0.00000918 0.00000915 0 0 0"/>
+        <geom type="mesh" mesh="BL_foot" material="foot_black" group="1"/>
+        <geom type="sphere" size="0.025" density="0" contype="1" conaffinity="1" friction="0.5 0.02 0.005"/>
+      </body>
+
+      <!-- ==================== Back Right Leg ==================== -->
+      <body name="BR_hip" pos="-0.153 -0.06 -0.06">
+        <inertial pos="-0.0416 -0.0108 0.0098" mass="0.933" fullinertia="0.00114 0.00109 0.00110 -0.000035 0.000032 0.000134"/>
+        <geom type="mesh" mesh="BR_hip" material="body_gray" group="1"/>
+        <geom type="capsule" size="0.025 0.06" pos="-0.02 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="BR_hip_joint" type="hinge" axis="-1 0 0" range="-1.5 0" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="BR_thigh" pos="-0.056 -0.0484 0.0471">
+        <inertial pos="-0.0547 -0.0357 -0.0169" mass="0.481" fullinertia="0.00112 0.00232 0.00230 -0.000791 -0.000803 -0.000490"/>
+        <geom type="mesh" mesh="BR_thigh" material="limb_gray" group="1"/>
+        <geom type="capsule" size="0.018 0.14" pos="0 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="BR_thigh_joint" type="hinge" axis="0 -0.717 0.697" range="-0.785 0.785" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="BR_calf" pos="-0.1525 -0.1096 -0.0740">
+        <inertial pos="0.0700 0.0160 -0.0022" mass="0.147" fullinertia="0.0000227 0.000737 0.000736 -0.000041 -0.000042 -0.000009"/>
+        <geom type="mesh" mesh="BR_calf" material="limb_gray" group="1"/>
+        <geom type="capsule" size="0.012 0.15" pos="0.03 0 0" density="0" contype="1" conaffinity="1"/>
+        <joint name="BR_calf_joint" type="hinge" axis="0 -0.717 0.697" range="-1.11 -0.1" damping="0.7" frictionloss="1.0"/>
+      </body>
+
+      <body name="BR_foot" pos="0.2117 0.0025 -0.0168">
+        <inertial pos="-0.0105 0.0044 0.0046" mass="0.047" fullinertia="0.00000818 0.00000918 0.00000915 0 0 0"/>
+        <geom type="mesh" mesh="BR_foot" material="foot_black" group="1"/>
+        <geom type="sphere" size="0.025" density="0" contype="1" conaffinity="1" friction="0.5 0.02 0.005"/>
+      </body>
+
+    </body>
+  </worldbody>
+
+  <!-- ==================== 驱动器 (Actuators) ==================== -->
+  <actuator>
+    <motor joint="FL_hip_joint" gear="1" ctrllimited="true" ctrlrange="-17 17"/>
+    <motor joint="FR_hip_joint" gear="1" ctrllimited="true" ctrlrange="-17 17"/>
+    <motor joint="BL_hip_joint" gear="1" ctrllimited="true" ctrlrange="-17 17"/>
+    <motor joint="BR_hip_joint" gear="1" ctrllimited="true" ctrlrange="-17 17"/>
+
+    <motor joint="FL_thigh_joint" gear="1" ctrllimited="true" ctrlrange="-17 17"/>
+    <motor joint="FR_thigh_joint" gear="1" ctrllimited="true" ctrlrange="-17 17"/>
+    <motor joint="BL_thigh_joint" gear="1" ctrllimited="true" ctrlrange="-17 17"/>
+    <motor joint="BR_thigh_joint" gear="1" ctrllimited="true" ctrlrange="-17 17"/>
+
+    <motor joint="FL_calf_joint" gear="1" ctrllimited="true" ctrlrange="-31 31"/>
+    <motor joint="FR_calf_joint" gear="1" ctrllimited="true" ctrlrange="-31 31"/>
+    <motor joint="BL_calf_joint" gear="1" ctrllimited="true" ctrlrange="-31 31"/>
+    <motor joint="BR_calf_joint" gear="1" ctrllimited="true" ctrlrange="-31 31"/>
+  </actuator>
+
+  <!-- ==================== 传感器 (Sensors) ==================== -->
+  <sensor>
+    <accelerometer name="imu_acc" site="imu_site"/>
+    <gyro name="imu_gyro" site="imu_site"/>
+
+    <jointpos name="FL_hip_pos" joint="FL_hip_joint"/>
+    <jointpos name="FL_thigh_pos" joint="FL_thigh_joint"/>
+    <jointpos name="FL_calf_pos" joint="FL_calf_joint"/>
+    <jointpos name="FR_hip_pos" joint="FR_hip_joint"/>
+    <jointpos name="FR_thigh_pos" joint="FR_thigh_joint"/>
+    <jointpos name="FR_calf_pos" joint="FR_calf_joint"/>
+    <jointpos name="BL_hip_pos" joint="BL_hip_joint"/>
+    <jointpos name="BL_thigh_pos" joint="BL_thigh_joint"/>
+    <jointpos name="BL_calf_pos" joint="BL_calf_joint"/>
+    <jointpos name="BR_hip_pos" joint="BR_hip_joint"/>
+    <jointpos name="BR_thigh_pos" joint="BR_thigh_joint"/>
+    <jointpos name="BR_calf_pos" joint="BR_calf_joint"/>
+
+    <jointvel name="FL_hip_vel" joint="FL_hip_joint"/>
+    <jointvel name="FL_thigh_vel" joint="FL_thigh_joint"/>
+    <jointvel name="FL_calf_vel" joint="FL_calf_joint"/>
+    <jointvel name="FR_hip_vel" joint="FR_hip_joint"/>
+    <jointvel name="FR_thigh_vel" joint="FR_thigh_joint"/>
+    <jointvel name="FR_calf_vel" joint="FR_calf_joint"/>
+    <jointvel name="BL_hip_vel" joint="BL_hip_joint"/>
+    <jointvel name="BL_thigh_vel" joint="BL_thigh_joint"/>
+    <jointvel name="BL_calf_vel" joint="BL_calf_joint"/>
+    <jointvel name="BR_hip_vel" joint="BR_hip_joint"/>
+    <jointvel name="BR_thigh_vel" joint="BR_thigh_joint"/>
+    <jointvel name="BR_calf_vel" joint="BR_calf_joint"/>
+  </sensor>
+
+</mujoco>

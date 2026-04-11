@@ -1,0 +1,43 @@
+[0.389s] Invoking command in '/home/lzh/Quadruped_Uika/src/sim': PYTHONPATH=/home/lzh/Quadruped_Uika/build/sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/sim build --build-base /home/lzh/Quadruped_Uika/build/sim/build install --record /home/lzh/Quadruped_Uika/build/sim/install.log --single-version-externally-managed install_data
+[0.543s] running egg_info
+[0.544s] creating ../../build/sim/sim.egg-info
+[0.544s] writing ../../build/sim/sim.egg-info/PKG-INFO
+[0.544s] writing dependency_links to ../../build/sim/sim.egg-info/dependency_links.txt
+[0.544s] writing entry points to ../../build/sim/sim.egg-info/entry_points.txt
+[0.544s] writing requirements to ../../build/sim/sim.egg-info/requires.txt
+[0.544s] writing top-level names to ../../build/sim/sim.egg-info/top_level.txt
+[0.544s] writing manifest file '../../build/sim/sim.egg-info/SOURCES.txt'
+[0.545s] reading manifest file '../../build/sim/sim.egg-info/SOURCES.txt'
+[0.545s] writing manifest file '../../build/sim/sim.egg-info/SOURCES.txt'
+[0.545s] running build
+[0.545s] running build_py
+[0.545s] creating /home/lzh/Quadruped_Uika/build/sim/build
+[0.545s] creating /home/lzh/Quadruped_Uika/build/sim/build/lib
+[0.545s] creating /home/lzh/Quadruped_Uika/build/sim/build/lib/sim
+[0.545s] copying sim/mujoco_sim_node.py -> /home/lzh/Quadruped_Uika/build/sim/build/lib/sim
+[0.545s] copying sim/__init__.py -> /home/lzh/Quadruped_Uika/build/sim/build/lib/sim
+[0.545s] running install
+[0.545s] running install_lib
+[0.546s] creating /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim
+[0.546s] copying /home/lzh/Quadruped_Uika/build/sim/build/lib/sim/mujoco_sim_node.py -> /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim
+[0.546s] copying /home/lzh/Quadruped_Uika/build/sim/build/lib/sim/__init__.py -> /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim
+[0.546s] byte-compiling /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim/mujoco_sim_node.py to mujoco_sim_node.cpython-310.pyc
+[0.548s] byte-compiling /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim/__init__.py to __init__.cpython-310.pyc
+[0.548s] running install_data
+[0.548s] creating /home/lzh/Quadruped_Uika/install/sim/share/ament_index
+[0.548s] creating /home/lzh/Quadruped_Uika/install/sim/share/ament_index/resource_index
+[0.548s] creating /home/lzh/Quadruped_Uika/install/sim/share/ament_index/resource_index/packages
+[0.548s] copying resource/sim -> /home/lzh/Quadruped_Uika/install/sim/share/ament_index/resource_index/packages
+[0.548s] creating /home/lzh/Quadruped_Uika/install/sim/share/sim/config
+[0.548s] copying config/sim_params.yaml -> /home/lzh/Quadruped_Uika/install/sim/share/sim/config
+[0.548s] creating /home/lzh/Quadruped_Uika/install/sim/share/sim/launch
+[0.548s] copying launch/sim.launch.py -> /home/lzh/Quadruped_Uika/install/sim/share/sim/launch
+[0.548s] creating /home/lzh/Quadruped_Uika/install/sim/share/sim/mjcf
+[0.548s] creating /home/lzh/Quadruped_Uika/install/sim/share/sim/meshes
+[0.548s] copying package.xml -> /home/lzh/Quadruped_Uika/install/sim/share/sim
+[0.549s] running install_egg_info
+[0.549s] Copying ../../build/sim/sim.egg-info to /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim-1.0.0-py3.10.egg-info
+[0.550s] running install_scripts
+[0.562s] Installing mujoco_sim_node script to lib/sim
+[0.562s] writing list of installed files to '/home/lzh/Quadruped_Uika/build/sim/install.log'
+[0.577s] Invoked command in '/home/lzh/Quadruped_Uika/src/sim' returned '0': PYTHONPATH=/home/lzh/Quadruped_Uika/build/sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/sim build --build-base /home/lzh/Quadruped_Uika/build/sim/build install --record /home/lzh/Quadruped_Uika/build/sim/install.log --single-version-externally-managed install_data

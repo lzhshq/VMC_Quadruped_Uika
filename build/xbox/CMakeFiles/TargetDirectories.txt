@@ -1,0 +1,10 @@
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/uninstall.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/xbox_uninstall.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/xbox_vel_publisher.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/test.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/edit_cache.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/rebuild_cache.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/list_install_components.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/install.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/install/local.dir
+/home/lzh/Quadruped_Uika/build/xbox/CMakeFiles/install/strip.dir

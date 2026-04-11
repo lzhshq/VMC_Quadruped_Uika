@@ -1,0 +1,6 @@
+Invoking command in '/home/lzh/Quadruped_Uika/build/xbox': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/lzh/Quadruped_Uika/src/xbox -DCMAKE_INSTALL_PREFIX=/home/lzh/Quadruped_Uika/install/xbox
+Invoked command in '/home/lzh/Quadruped_Uika/build/xbox' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/lzh/Quadruped_Uika/src/xbox -DCMAKE_INSTALL_PREFIX=/home/lzh/Quadruped_Uika/install/xbox
+Invoking command in '/home/lzh/Quadruped_Uika/build/xbox': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/lzh/Quadruped_Uika/build/xbox -- -j16 -l16
+Invoked command in '/home/lzh/Quadruped_Uika/build/xbox' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/lzh/Quadruped_Uika/build/xbox -- -j16 -l16
+Invoking command in '/home/lzh/Quadruped_Uika/build/xbox': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/lzh/Quadruped_Uika/build/xbox
+Invoked command in '/home/lzh/Quadruped_Uika/build/xbox' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/lzh/Quadruped_Uika/build/xbox

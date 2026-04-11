@@ -1,0 +1,41 @@
+running egg_info
+creating ../../build/sim/sim.egg-info
+writing ../../build/sim/sim.egg-info/PKG-INFO
+writing dependency_links to ../../build/sim/sim.egg-info/dependency_links.txt
+writing entry points to ../../build/sim/sim.egg-info/entry_points.txt
+writing requirements to ../../build/sim/sim.egg-info/requires.txt
+writing top-level names to ../../build/sim/sim.egg-info/top_level.txt
+writing manifest file '../../build/sim/sim.egg-info/SOURCES.txt'
+reading manifest file '../../build/sim/sim.egg-info/SOURCES.txt'
+writing manifest file '../../build/sim/sim.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/lzh/Quadruped_Uika/build/sim/build
+creating /home/lzh/Quadruped_Uika/build/sim/build/lib
+creating /home/lzh/Quadruped_Uika/build/sim/build/lib/sim
+copying sim/mujoco_sim_node.py -> /home/lzh/Quadruped_Uika/build/sim/build/lib/sim
+copying sim/__init__.py -> /home/lzh/Quadruped_Uika/build/sim/build/lib/sim
+running install
+running install_lib
+creating /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim
+copying /home/lzh/Quadruped_Uika/build/sim/build/lib/sim/mujoco_sim_node.py -> /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim
+copying /home/lzh/Quadruped_Uika/build/sim/build/lib/sim/__init__.py -> /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim
+byte-compiling /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim/mujoco_sim_node.py to mujoco_sim_node.cpython-310.pyc
+byte-compiling /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/lzh/Quadruped_Uika/install/sim/share/ament_index
+creating /home/lzh/Quadruped_Uika/install/sim/share/ament_index/resource_index
+creating /home/lzh/Quadruped_Uika/install/sim/share/ament_index/resource_index/packages
+copying resource/sim -> /home/lzh/Quadruped_Uika/install/sim/share/ament_index/resource_index/packages
+creating /home/lzh/Quadruped_Uika/install/sim/share/sim/config
+copying config/sim_params.yaml -> /home/lzh/Quadruped_Uika/install/sim/share/sim/config
+creating /home/lzh/Quadruped_Uika/install/sim/share/sim/launch
+copying launch/sim.launch.py -> /home/lzh/Quadruped_Uika/install/sim/share/sim/launch
+creating /home/lzh/Quadruped_Uika/install/sim/share/sim/mjcf
+creating /home/lzh/Quadruped_Uika/install/sim/share/sim/meshes
+copying package.xml -> /home/lzh/Quadruped_Uika/install/sim/share/sim
+running install_egg_info
+Copying ../../build/sim/sim.egg-info to /home/lzh/Quadruped_Uika/install/sim/lib/python3.10/site-packages/sim-1.0.0-py3.10.egg-info
+running install_scripts
+Installing mujoco_sim_node script to lib/sim
+writing list of installed files to '/home/lzh/Quadruped_Uika/build/sim/install.log'
