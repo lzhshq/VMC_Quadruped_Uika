@@ -91,7 +91,22 @@ check_system_deps() {
         print_warning "缺少系统依赖: ${missing_deps[*]}"
         print_info "请运行以下命令安装:"
         print_info "  sudo apt-get update && sudo apt-get install -y ${missing_deps[*]}"
-        return 1
+    fi
+
+    # 检查 rl_sar 必需的系统库
+    print_info "检查 rl_sar 必需的系统库..."
+    local required_libs=("libyaml-cpp-dev" "libeigen3-dev" "libboost-all-dev" "libspdlog-dev" "libfmt-dev" "libtbb-dev" "liblcm-dev")
+    local missing_libs=()
+    for lib in "${required_libs[@]}"; do
+        if ! dpkg -l | grep -q "^ii  $lib "; then
+            missing_libs+=("$lib")
+        fi
+    done
+
+    if [ ${#missing_libs[@]} -ne 0 ]; then
+        print_warning "缺少库: ${missing_libs[*]}"
+        print_info "请运行以下命令安装:"
+        print_info "  sudo apt-get update && sudo apt-get install -y ${missing_libs[*]}"
     fi
 
     print_success "系统依赖检查通过"
@@ -172,7 +187,7 @@ setup_conda_env() {
     print_info "安装Python依赖..."
 
     conda run -n ros2_humble pip install --upgrade pip
-    conda run -n ros2_humble pip install numpy==2.4.3
+    conda run -n ros2_humble pip install numpy==2.2.6
     conda run -n ros2_humble pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
     print_success "Conda环境配置完成"
