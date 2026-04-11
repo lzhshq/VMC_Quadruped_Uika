@@ -188,7 +188,17 @@ setup_conda_env() {
 
     conda run -n ros2_humble pip install --upgrade pip
     conda run -n ros2_humble pip install numpy==2.2.6
-    conda run -n ros2_humble pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+    # 检查是否在 Jetson (ARM64) 上
+    ARCH_TYPE="$(uname -m)"
+    if [ "${ARCH_TYPE}" = "aarch64" ]; then
+        print_info "检测到 ARM64 架构 (Jetson)"
+        print_info "跳过 LibTorch (无通用 ARM64 版本，UIKA 使用 ONNX 模型不需要)"
+        print_info "PyTorch 需手动安装 (参考 NVIDIA JetPack 文档)"
+    else
+        # x86_64: 使用官方 PyTorch CPU 版本
+        conda run -n ros2_humble pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+    fi
 
     print_success "Conda环境配置完成"
 }
@@ -198,13 +208,22 @@ setup_conda_env() {
 # ============================================
 setup_inference_runtime() {
     print_info "=========================================="
-    print_info "Step 4: 下载推理运行时 (LibTorch + ONNX Runtime)"
+    print_info "Step 4: 下载推理运行时"
     print_info "=========================================="
 
     cd "$PROJECT_ROOT"
 
-    # 下载 LibTorch 和 ONNX Runtime
-    bash "$SCRIPT_DIR/download_inference_runtime.sh" all
+    ARCH_TYPE="$(uname -m)"
+
+    if [ "${ARCH_TYPE}" = "aarch64" ]; then
+        print_info "ARM64 架构 (Jetson) - 仅下载 ONNX Runtime"
+        print_info "LibTorch 在 ARM64 上不可用，跳过"
+        bash "$SCRIPT_DIR/download_inference_runtime.sh" onnx
+    else
+        # x86_64: 下载 LibTorch 和 ONNX Runtime
+        print_info "x86_64 架构 - 下载 LibTorch + ONNX Runtime"
+        bash "$SCRIPT_DIR/download_inference_runtime.sh" all
+    fi
 
     print_success "推理运行时配置完成"
 }
