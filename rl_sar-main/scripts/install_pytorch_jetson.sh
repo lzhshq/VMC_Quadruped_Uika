@@ -145,16 +145,16 @@ install_pytorch_jetson() {
         print_warning "Some dependencies may have failed to install, continuing..."
     }
 
-    # Download PyTorch wheel
+    # Download PyTorch wheel (use -k for embedded systems with SSL cert issues)
     print_info "Downloading PyTorch wheel (this may take several minutes)..."
     if command -v curl &> /dev/null; then
-        curl -L --progress-bar -o "${wheel_path}" "${wheel_url}" || {
+        curl -Lk --progress-bar -o "${wheel_path}" "${wheel_url}" || {
             print_error "Failed to download PyTorch wheel"
             rm -f "${wheel_path}"
             return 1
         }
     elif command -v wget &> /dev/null; then
-        wget --show-progress -O "${wheel_path}" "${wheel_url}" || {
+        wget --no-check-certificate --show-progress -O "${wheel_path}" "${wheel_url}" || {
             print_error "Failed to download PyTorch wheel"
             rm -f "${wheel_path}"
             return 1

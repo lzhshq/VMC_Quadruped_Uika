@@ -163,11 +163,11 @@ setup_conda_env() {
 
         ARCH_TYPE="$(uname -m)"
         if [ "${ARCH_TYPE}" = "aarch64" ]; then
-            # ARM64: 使用aarch64版本的Miniconda
-            curl -sL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -o miniconda.sh
+            # ARM64: 使用aarch64版本的Miniconda (-k for SSL issues on embedded)
+            curl -Lk https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -o miniconda.sh
         else
             # x86_64: 使用标准版本
-            curl -sL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
+            curl -Lk https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
         fi
 
         bash miniconda.sh -b -p ~/.miniconda

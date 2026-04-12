@@ -124,15 +124,15 @@ download_libtorch() {
     print_info "Platform: ${OS_TYPE} (${ARCH_TYPE})"
     print_info "URL: ${url}"
 
-    # Download
+    # Download (use -k for Jetson/embedded systems with SSL cert issues)
     if command -v curl &> /dev/null; then
-        curl -L --progress-bar -o "${archive_path}" "${url}" || {
+        curl -Lk --progress-bar -o "${archive_path}" "${url}" || {
             print_error "Download failed"
             rm -f "${archive_path}"
             exit 1
         }
     elif command -v wget &> /dev/null; then
-        wget --show-progress -O "${archive_path}" "${url}" || {
+        wget --no-check-certificate --show-progress -O "${archive_path}" "${url}" || {
             print_error "Download failed"
             rm -f "${archive_path}"
             exit 1
@@ -222,15 +222,15 @@ download_onnxruntime() {
     print_info "Platform: ${OS_TYPE} (${ARCH_TYPE})"
     print_info "URL: ${url}"
 
-    # Download
+    # Download (use -k for Jetson/embedded systems with SSL cert issues)
     if command -v curl &> /dev/null; then
-        curl -L --progress-bar -o "${archive_path}" "${url}" || {
+        curl -Lk --progress-bar -o "${archive_path}" "${url}" || {
             print_error "Download failed"
             rm -f "${archive_path}"
             exit 1
         }
     elif command -v wget &> /dev/null; then
-        wget --show-progress -O "${archive_path}" "${url}" || {
+        wget --no-check-certificate --show-progress -O "${archive_path}" "${url}" || {
             print_error "Download failed"
             rm -f "${archive_path}"
             exit 1
