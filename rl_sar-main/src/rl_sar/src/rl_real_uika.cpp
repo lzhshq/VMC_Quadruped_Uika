@@ -58,6 +58,8 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
+#include <filesystem>
+#include <cstring>
 
 /**
  * @brief UIKA RL 控制节点
@@ -77,13 +79,19 @@ public:
           dt_(0.005),                // 控制周期 5ms
           decimation_(4),            // 推理间隔: 5ms * 4 = 20ms (50Hz)
           last_action_(12, 0.0f),   // 上一步动作初始为零
-          last_filtered_action_(12, 0.0f),  // 上一步滤波后动作
           robot_name_("uika"),       // 机器人名称
           rl_init_done_(false),      // RL未初始化
           model_(nullptr),            // ONNX模型指针
+          // 缩放因子默认值（与config.yaml一致）
+          lin_vel_scale_(2.0f),
+          ang_vel_scale_(0.25f),
+          dof_pos_scale_(1.0f),
+          dof_vel_scale_(0.05f),
+          clip_obs_(100.0f),
           // 初始化数据接收标志为 false
           joint_state_received_(false),
-          imu_received_(false)
+          imu_received_(false),
+          commands_received_(false)
     {
         RCLCPP_INFO(this->get_logger(), "Initializing UIKA RL Node...");
 
@@ -114,12 +122,21 @@ public:
             std::bind(&UINode::JointStateCallback, this, std::placeholders::_1));
 
         // 3.2 IMU订阅: /uika/imu
-        //    数据格式: [qw, qx, qy, qz, gx, gy, gz] 共7个float
-        //    - quat: 四元数姿态 (w,x,y,z)
+        //    数据格式: [qx, qy, qz, qw, gx, gy, gz] 共7个float
+        //    - quat: 四元数姿态 (x,y,z,w) - 硬件格式
         //    - gyro: 陀螺仪角速度 (rad/s)
         imu_sub_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
             "/uika/imu", 10,
             std::bind(&UINode::ImuCallback, this, std::placeholders::_1));
+
+        // 3.3 命令订阅: /uika/commands
+        //    数据格式: [vx, vy, wz] 共3个float
+        //    - vx: 前进速度 (m/s)
+        //    - vy: 侧向速度 (m/s)
+        //    - wz: 偏航角速度 (rad/s)
+        commands_sub_ = this->create_subscription<std_msgs::msg::Float64MultiArray>(
+            "/uika/commands", 10,
+            std::bind(&UINode::CommandsCallback, this, std::placeholders::_1));
 
         // ============================================================
         // 4. 初始化RL模块
@@ -127,7 +144,11 @@ public:
         //    - 加载ONNX策略模型
         //    - 初始化观测缓冲区和变量
         // ============================================================
-        InitRL();
+        if (!InitRL())
+        {
+            RCLCPP_ERROR(this->get_logger(), "RL initialization failed! Inference disabled.");
+            return;  // 不创建定时器，不打印启动信息
+        }
 
         // ============================================================
         // 5. 创建推理定时器
@@ -145,24 +166,23 @@ public:
         RCLCPP_INFO(this->get_logger(), "  [Subscribers]");
         RCLCPP_INFO(this->get_logger(), "    /uika/joint_state (24D: 12 positions + 12 velocities)");
         RCLCPP_INFO(this->get_logger(), "    /uika/imu (7D: 4 quaternion + 3 gyroscope)");
+        RCLCPP_INFO(this->get_logger(), "    /uika/commands (3D: vx, vy, wz)");
         RCLCPP_INFO(this->get_logger(), "  [Publishers]");
         RCLCPP_INFO(this->get_logger(), "    /uika/target_position (12D: joint target positions)");
         RCLCPP_INFO(this->get_logger(), "  [Inference]");
         RCLCPP_INFO(this->get_logger(), "    Rate: %.1f Hz (dt=%.4f, decimation=%d)",
                     1.0 / (dt_ * decimation_), dt_, decimation_);
-        RCLCPP_INFO(this->get_logger(), "    Observation: %d dims + %d frame history = %d total",
-                    obs_dims_.empty() ? 0 : 45, observations_history_.size(),
-                    obs_dims_.empty() ? 0 : 45 * (observations_history_.size() + 1));
-        RCLCPP_INFO(this->get_logger(), "  [Low-pass Filter]");
-        RCLCPP_INFO(this->get_logger(), "    Alpha: %.2f (%.0f%% new, %.0f%% old)",
-                    action_filter_alpha_, action_filter_alpha_ * 100, (1 - action_filter_alpha_) * 100);
+        RCLCPP_INFO(this->get_logger(), "    Observation: %d dims x %zu frames = %zu total",
+                    obs_dims_.empty() ? 0 : 45,
+                    observations_history_.empty() ? 1 : observations_history_.size(),
+                    obs_dims_.empty() ? 0 : 45 * (observations_history_.empty() ? 1 : observations_history_.size()));
     }
 
 private:
     // ================================================================
     // InitRL(): 初始化RL模块
     // ================================================================
-    void InitRL()
+    bool InitRL()
     {
         // ------------------------------------------------------------
         // 1. 确定配置文件和模型路径
@@ -289,7 +309,7 @@ private:
         catch (YAML::BadFile &e)
         {
             RCLCPP_ERROR(this->get_logger(), "Failed to load config: %s", e.what());
-            return;
+            return false;
         }
 
         // ------------------------------------------------------------
@@ -303,9 +323,14 @@ private:
         }
         else
         {
-            // 后备: 尝试扫描目录下最新的onnx文件
-            RCLCPP_WARN(this->get_logger(), "No model_name in config, trying to find .onnx file");
-            model_path = policy_dir + "/" + robot_name_ + "/" + model_subdir + "policy.onnx";
+            // 后备: 自动扫描目录下最新的onnx文件
+            std::string search_dir = policy_dir + "/" + robot_name_ + "/" + model_subdir;
+            model_path = FindLatestOnnx(search_dir);
+            if (model_path.empty())
+            {
+                RCLCPP_ERROR(this->get_logger(), "No .onnx model found in: %s", search_dir.c_str());
+                return false;
+            }
         }
 
         RCLCPP_INFO(this->get_logger(), "Loading model from: %s", model_path.c_str());
@@ -317,7 +342,7 @@ private:
         if (!model_)
         {
             RCLCPP_ERROR(this->get_logger(), "Failed to load model!");
-            return;
+            return false;
         }
 
         // ------------------------------------------------------------
@@ -358,11 +383,60 @@ private:
         obs_.dof_vel.resize(num_of_dofs_, 0.0f);   // 关节速度（来自/joint_state）
         obs_.actions.resize(num_of_dofs_, 0.0f);    // 动作（上一步输出）
 
-        // 初始化滤波动作
-        last_filtered_action_.resize(num_of_dofs_, 0.0f);
-
         rl_init_done_ = true;
         RCLCPP_INFO(this->get_logger(), "RL initialization complete.");
+        return true;
+    }
+
+    // ================================================================
+    // FindLatestOnnx(): 扫描目录找到最新的 .onnx 文件
+    // ================================================================
+    std::string FindLatestOnnx(const std::string& dir_path)
+    {
+        namespace fs = std::filesystem;
+        std::string latest_path;
+        std::filesystem::file_time_type latest_time;
+
+        try
+        {
+            if (!std::filesystem::exists(dir_path) || !std::filesystem::is_directory(dir_path))
+            {
+                RCLCPP_WARN(this->get_logger(), "Directory not found: %s", dir_path.c_str());
+                return "";
+            }
+
+            for (const auto& entry : fs::directory_iterator(dir_path))
+            {
+                if (!entry.is_regular_file())
+                    continue;
+
+                std::string filename = entry.path().filename().string();
+                std::string ext = ".onnx";
+
+                // 检查扩展名 (忽略大小写)
+                if (filename.size() >= ext.size() &&
+                    strcasecmp(filename.c_str() + filename.size() - ext.size(), ext.c_str()) == 0)
+                {
+                    auto mtime = entry.last_write_time();
+                    if (latest_path.empty() || mtime > latest_time)
+                    {
+                        latest_path = entry.path().string();
+                        latest_time = mtime;
+                    }
+                }
+            }
+
+            if (!latest_path.empty())
+            {
+                RCLCPP_INFO(this->get_logger(), "Auto-selected latest ONNX: %s", latest_path.c_str());
+            }
+        }
+        catch (const std::exception& e)
+        {
+            RCLCPP_WARN(this->get_logger(), "Error scanning directory: %s", e.what());
+        }
+
+        return latest_path;
     }
 
     // ================================================================
@@ -469,6 +543,36 @@ private:
     }
 
     // ================================================================
+    // CommandsCallback(): 遥控器命令回调
+    //
+    // 接收: /uika/commands 消息
+    // 数据: [vx, vy, wz] 共3个float
+    //   - vx: 前进/后退速度 (m/s)
+    //   - vy: 左/右横移速度 (m/s)
+    //   - wz: 左/右偏航角速度 (rad/s)
+    //
+    // 处理: 存入commands_buffer_
+    // ================================================================
+    void CommandsCallback(const std_msgs::msg::Float64MultiArray::SharedPtr msg)
+    {
+        // 验证数据长度
+        if (msg->data.size() != 3)
+        {
+            RCLCPP_WARN(this->get_logger(), "Invalid commands size: %zu, expected 3", msg->data.size());
+            return;
+        }
+
+        std::lock_guard<std::mutex> lock(data_mutex_);
+
+        // 解析并存储命令数据
+        commands_buffer_[0] = msg->data[0];  // vx
+        commands_buffer_[1] = msg->data[1];  // vy
+        commands_buffer_[2] = msg->data[2];  // wz
+
+        commands_received_ = true;  // 标记数据已接收
+    }
+
+    // ================================================================
     // ImuCallback(): IMU数据回调
     //
     // 接收: /uika/imu 消息
@@ -490,9 +594,12 @@ private:
         std::lock_guard<std::mutex> lock(data_mutex_);
 
         // 解析并存储IMU数据
-        // 前4个: 四元数
-        for (int i = 0; i < 4; ++i)
-            imu_quat_[i] = msg->data[i];
+        // 前4个: 四元数 [x, y, z, w] (来自IMU硬件)
+        // 转换为内部格式 [w, x, y, z]
+        imu_quat_[0] = msg->data[3];  // w <- 位置3
+        imu_quat_[1] = msg->data[0];  // x <- 位置0
+        imu_quat_[2] = msg->data[1];  // y <- 位置1
+        imu_quat_[3] = msg->data[2];  // z <- 位置2
 
         // 后3个: 陀螺仪
         for (int i = 0; i < 3; ++i)
@@ -626,16 +733,16 @@ private:
         if (actions.empty())
         {
             RCLCPP_ERROR_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
-                "Model inference returned empty actions! Using last filtered action.");
-            return last_filtered_action_;
+                "Model inference returned empty actions! Using last action.");
+            return last_action_;
         }
 
         if (actions.size() != static_cast<size_t>(num_of_dofs_))
         {
             RCLCPP_ERROR_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
-                "Model inference returned %zu actions, expected %d! Using last filtered action.",
+                "Model inference returned %zu actions, expected %d! Using last action.",
                 actions.size(), num_of_dofs_);
-            return last_filtered_action_;
+            return last_action_;
         }
 
         // 裁剪动作到限制范围
@@ -654,30 +761,6 @@ private:
     }
 
     // ================================================================
-    // ApplyLowPassFilter(): 低通滤波
-    //
-    // 滤波公式: filtered = alpha * raw + (1 - alpha) * last_filtered
-    //   - alpha = 0.2 (20% 新值, 80% 历史值)
-    //   - 平滑高频抖动，保留低频趋势
-    //
-    // 输入: raw_action - 原始动作
-    // 返回: 滤波后动作
-    // ================================================================
-    std::vector<float> ApplyLowPassFilter(const std::vector<float>& raw_action)
-    {
-        std::vector<float> filtered_action(num_of_dofs_);
-
-        for (int i = 0; i < num_of_dofs_; ++i)
-        {
-            // filtered = alpha * raw + (1 - alpha) * last
-            filtered_action[i] = action_filter_alpha_ * raw_action[i] +
-                                (1.0f - action_filter_alpha_) * last_filtered_action_[i];
-        }
-
-        return filtered_action;
-    }
-
-    // ================================================================
     // InferenceLoop(): 推理循环（定时器触发，50Hz）
     //
     // 工作流程:
@@ -687,10 +770,9 @@ private:
     //   4. 归一化四元数
     //   5. 计算观测向量
     //   6. 运行模型推理
-    //   7. 应用低通滤波
-    //   8. 计算输出关节位置
-    //   9. 发布目标位置
-    //   10. 重置数据接收标志
+    //   7. 计算输出关节位置
+    //   8. 发布目标位置
+    //   9. 重置数据接收标志
     // ================================================================
     void InferenceLoop()
     {
@@ -698,84 +780,69 @@ private:
         if (!rl_init_done_)
             return;
 
-        std::lock_guard<std::mutex> lock(data_mutex_);
+        // ---- 短时持锁：拷贝传感器数据到局部变量 ----
+        std::array<float, 12> local_joint_pos;
+        std::array<float, 12> local_joint_vel;
+        std::array<float, 4>  local_imu_quat;
+        std::array<float, 3>  local_imu_gyro;
+        std::array<float, 3>  local_commands;
+        {
+            std::lock_guard<std::mutex> lock(data_mutex_);
 
-        // 2. 检查是否有新数据（两个话题都收到才推理）
-        if (!joint_state_received_ || !imu_received_)
-            return;
+            if (!joint_state_received_ || !imu_received_ || !commands_received_)
+                return;
 
-        // --------------------------------------------------------
-        // 3. 更新观测变量
-        // --------------------------------------------------------
+            local_joint_pos = joint_pos_;
+            local_joint_vel = joint_vel_;
+            local_imu_quat  = imu_quat_;
+            local_imu_gyro  = imu_gyro_;
+            local_commands   = commands_buffer_;
 
-        // 角速度: 直接使用IMU陀螺仪数据
+            joint_state_received_ = false;
+            imu_received_ = false;
+            commands_received_ = false;
+        }
+        // ---- 锁已释放，以下无锁执行 ----
+
+        // 3. 更新观测变量（使用局部拷贝）
         for (int i = 0; i < 3; ++i)
-            obs_.ang_vel[i] = imu_gyro_[i];
+            obs_.ang_vel[i] = local_imu_gyro[i];
 
-        // 姿态: 直接使用IMU四元数
         for (int i = 0; i < 4; ++i)
-            obs_.base_quat[i] = imu_quat_[i];
+            obs_.base_quat[i] = local_imu_quat[i];
 
-        // --------------------------------------------------------
-        // P2 Fix: 四元数归一化
-        // --------------------------------------------------------
         obs_.base_quat = NormalizeQuaternion(obs_.base_quat);
 
-        // 关节位置和速度: 直接使用/joint_state数据
         for (int i = 0; i < num_of_dofs_; ++i)
         {
-            obs_.dof_pos[i] = joint_pos_[i];
-            obs_.dof_vel[i] = joint_vel_[i];
+            obs_.dof_pos[i] = local_joint_pos[i];
+            obs_.dof_vel[i] = local_joint_vel[i];
         }
 
-        // 命令: 设为零（自主模式，无外部命令）
-        obs_.commands = {0.0f, 0.0f, 0.0f};
+        obs_.commands = {local_commands[0], local_commands[1], local_commands[2]};
 
-        // --------------------------------------------------------
         // 4-5. 计算观测向量并推理
-        // --------------------------------------------------------
         std::vector<float> clamped_obs = ComputeObservation();
         std::vector<float> raw_actions = Forward(clamped_obs);
 
-        // --------------------------------------------------------
-        // P2 Fix: 应用低通滤波
-        // --------------------------------------------------------
-        std::vector<float> filtered_actions = ApplyLowPassFilter(raw_actions);
-
-        // 更新历史滤波动作
-        last_filtered_action_ = filtered_actions;
-
-        // --------------------------------------------------------
         // 6. 计算输出关节目标位置
-        //    output_pos = filtered_action * action_scale + default_pos
-        // --------------------------------------------------------
         std::vector<float> output_dof_pos(num_of_dofs_);
         for (int i = 0; i < num_of_dofs_; ++i)
         {
-            float action_scaled = filtered_actions[i] * action_scale_[i];
+            float action_scaled = raw_actions[i] * action_scale_[i];
             output_dof_pos[i] = action_scaled + default_dof_pos_[i];
         }
 
-        // --------------------------------------------------------
-        // 7. 发布目标位置到 /uika/target_position
-        // --------------------------------------------------------
+        // 8. 发布目标位置
         std_msgs::msg::Float64MultiArray target_msg;
         target_msg.data.resize(num_of_dofs_);
         for (int i = 0; i < num_of_dofs_; ++i)
             target_msg.data[i] = output_dof_pos[i];
         target_position_pub_->publish(target_msg);
 
-        // --------------------------------------------------------
-        // 8. 保存动作用于下一帧
-        // --------------------------------------------------------
+        // 9. 保存动作用于下一帧
         last_action_ = raw_actions;
-        obs_.actions = filtered_actions;  // 使用滤波后的动作
-
-        // --------------------------------------------------------
-        // 9. 重置数据接收标志，等待下一组新数据
-        // --------------------------------------------------------
-        joint_state_received_ = false;
-        imu_received_ = false;
+        obs_.actions = raw_actions;  // 与训练一致
     }
 
     // ================================================================
@@ -784,16 +851,18 @@ private:
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr target_position_pub_;  // 关节目标位置
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr joint_state_sub_; // 关节状态
     rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr imu_sub_;          // IMU数据
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr commands_sub_;     // 遥控器命令
     rclcpp::TimerBase::SharedPtr inference_timer_;                                     // 推理定时器
 
     // ================================================================
     // 数据缓冲区和锁
     // ================================================================
     std::mutex data_mutex_;              // 线程安全锁
-    std::array<float, 12> joint_pos_;   // 关节位置 [q0-q11]
-    std::array<float, 12> joint_vel_;   // 关节速度 [dq0-dq11]
-    std::array<float, 4> imu_quat_;      // 四元数 [w,x,y,z]
-    std::array<float, 3> imu_gyro_;      // 陀螺仪 [gx,gy,gz]
+    std::array<float, 12> joint_pos_{};   // 关节位置 [q0-q11]，零初始化
+    std::array<float, 12> joint_vel_{};   // 关节速度 [dq0-dq11]，零初始化
+    std::array<float, 3> commands_buffer_{};  // 遥控器命令 [vx, vy, wz]
+    std::array<float, 4> imu_quat_{{1.0f, 0.0f, 0.0f, 0.0f}};  // 四元数 [w,x,y,z]，单位四元数
+    std::array<float, 3> imu_gyro_{};      // 陀螺仪 [gx,gy,gz]，零初始化
     std::vector<float> last_action_;     // 上一步原始动作
 
     // ================================================================
@@ -806,12 +875,6 @@ private:
     std::vector<int> obs_dims_;          // 各观测组件维度
     std::vector<std::string> observations_;     // 观测组件名称列表
     std::vector<int> observations_history_;    // 历史观测索引
-
-    // ================================================================
-    // 低通滤波
-    // ================================================================
-    std::vector<float> last_filtered_action_;  // 上一步滤波后动作
-    const float action_filter_alpha_ = 0.2f;   // 滤波系数 (20% 新值)
 
     // ================================================================
     // 配置参数
@@ -836,40 +899,25 @@ private:
     // ================================================================
     bool joint_state_received_;  // 是否收到关节状态
     bool imu_received_;          // 是否收到IMU数据
+    bool commands_received_;      // 是否收到遥控器命令
     bool rl_init_done_;           // RL是否初始化完成
 };
-
-// ================================================================
-// 信号处理: 优雅退出
-// ================================================================
-volatile sig_atomic_t g_shutdown_requested = 0;
-void signalHandler(int signum)
-{
-    std::cout << "Received signal " << signum << ", shutting down..." << std::endl;
-    g_shutdown_requested = 1;
-}
 
 // ================================================================
 // main(): 程序入口
 // ================================================================
 int main(int argc, char **argv)
 {
-    // 注册信号处理器
-    signal(SIGINT, signalHandler);
-
-    // 初始化ROS2
     rclcpp::init(argc, argv);
     RCLCPP_INFO(rclcpp::get_logger("main"), "Starting UIKA RL Node...");
 
-    // 创建节点
     auto node = std::make_shared<UINode>();
 
-    // 多线程执行器（处理订阅回调和定时器）
     rclcpp::executors::MultiThreadedExecutor executor;
     executor.add_node(node);
 
-    // 主循环
-    while (rclcpp::ok() && !g_shutdown_requested)
+    // rclcpp::ok() 在收到 SIGINT 后自动返回 false
+    while (rclcpp::ok())
     {
         executor.spin_once(std::chrono::milliseconds(10));
     }
