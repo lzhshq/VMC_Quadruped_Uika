@@ -73,15 +73,9 @@ is_libtorch_valid() {
 download_libtorch() {
     # Check if Jetson platform
     if [ "${IS_JETSON}" = true ]; then
-        print_info "Jetson platform detected - using install_pytorch_jetson.sh"
-        if [ -x "${SCRIPT_DIR}/install_pytorch_jetson.sh" ]; then
-            "${SCRIPT_DIR}/install_pytorch_jetson.sh" "${LIBTORCH_DIR}"
-            return $?
-        else
-            print_error "install_pytorch_jetson.sh not found or not executable"
-            print_info "Please ensure ${SCRIPT_DIR}/install_pytorch_jetson.sh exists"
-            return 1
-        fi
+        # UIKA uses ONNX inference, LibTorch not needed on Jetson
+        print_info "Jetson platform detected - skipping LibTorch (UIKA uses ONNX)"
+        return 0
     fi
 
     local url=""
