@@ -87,6 +87,10 @@ get_pytorch_wheel_url() {
 
     # Map JetPack version to PyTorch wheel
     case "$jetpack_ver" in
+        36)
+            # JetPack 6.0.x (L4T R36.x) - PyTorch 2.4.0
+            wheel_url="https://developer.download.nvidia.cn/compute/redist/jp/v60/pytorch/torch-2.4.0a0+07cecf4168.nv24.05.14710581-cp${python_version}-cp${python_version}-linux_aarch64.whl"
+            ;;
         35)
             # JetPack 5.1.x (L4T R35.x) - PyTorch 2.1.0
             wheel_url="https://developer.download.nvidia.cn/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp${python_version}-cp${python_version}-linux_aarch64.whl"

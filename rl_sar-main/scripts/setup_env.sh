@@ -160,7 +160,16 @@ setup_conda_env() {
     if ! command -v conda &> /dev/null; then
         print_info "Conda未安装，安装Miniconda..."
         cd /tmp
-        curl -sL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
+
+        ARCH_TYPE="$(uname -m)"
+        if [ "${ARCH_TYPE}" = "aarch64" ]; then
+            # ARM64: 使用aarch64版本的Miniconda
+            curl -sL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -o miniconda.sh
+        else
+            # x86_64: 使用标准版本
+            curl -sL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
+        fi
+
         bash miniconda.sh -b -p ~/.miniconda
         rm miniconda.sh
         export PATH="$HOME/.miniconda/bin:$PATH"
@@ -187,7 +196,7 @@ setup_conda_env() {
     print_info "安装Python依赖..."
 
     conda run -n ros2_humble pip install --upgrade pip
-    conda run -n ros2_humble pip install numpy==2.2.6
+    conda run -n ros2_humble pip install numpy
 
     # 检查是否在 Jetson (ARM64) 上
     ARCH_TYPE="$(uname -m)"

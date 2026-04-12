@@ -48,7 +48,8 @@ LIBTORCH_VERSION="2.3.0"
 LIBTORCH_DIR="${MODEL_INTERFACE_DIR}/libtorch"
 
 # ONNX Runtime version and path
-ONNXRUNTIME_VERSION="1.22.0"
+# Note: Using 1.17.0 for broad aarch64 compatibility (verified ARM64 support)
+ONNXRUNTIME_VERSION="1.17.0"
 ONNXRUNTIME_DIR="${MODEL_INTERFACE_DIR}/onnxruntime"
 
 # Function: Validate LibTorch installation
